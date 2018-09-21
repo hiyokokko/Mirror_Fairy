@@ -6,19 +6,30 @@ public class ResultManager : MonoBehaviour
 	[SerializeField] Text downText;
 	[SerializeField] Text timeText;
 	public static Result result;
+	int sceneNum;
 	void Start ()
 	{
 		if (result.down == MainManager.enemyNum)
 		{
 			congratulations.SetActive(true);
-			downText.text = "All Fairy Down!!";
-			timeText.text = "time ： " + result.time.ToString("F2") + " m";
+			downText.text = "ALL FAIRY KILL!!";
+			timeText.text = "TIME _ " + result.time.ToString("F2") + " m";
 		}
 		else
 		{
-			downText.text = result.down + " Fairy Down";
-			timeText.text = "time " + result.time.ToString("F2") + " m";
+			downText.text = result.down + " FAIRY KILL";
+			timeText.text = "YOUR DEATH";
 		}
+	}
+	public void Select()
+	{
+		sceneNum = 1;
+		SceneChanger.sceneChange = sceneNum;
+	}
+	public void Retry()
+	{
+		sceneNum = 2;
+		SceneChanger.sceneChange = sceneNum;
 	}
 }
 public class Result

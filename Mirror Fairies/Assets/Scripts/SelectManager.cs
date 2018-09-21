@@ -6,6 +6,9 @@ public class SelectManager : MonoBehaviour
 	public void SelectDiff(int selectDiff)
 	{
 		diff = selectDiff;
+	}
+	public void MainScene()
+	{
 		sceneNum = 2;
 		SceneChanger.sceneChange = sceneNum;
 	}

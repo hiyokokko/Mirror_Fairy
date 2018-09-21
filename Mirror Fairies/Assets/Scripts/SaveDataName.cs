@@ -1,0 +1,5 @@
+﻿enum SaveDataName
+{
+	EasyKill,
+	EasyTime
+}

@@ -2,17 +2,21 @@
 using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
-	public static int sceneChange = -1;
-	bool cameraMove = false;
-	float cameraSpeed = 18.0f;
-	float[] cameraTarget = new float[2]
-	{
-		18.0f,
-		0.0f
-	};
+	public static int sceneChange;
+	bool cameraMove;
+	float cameraSpeed;
+	float[] cameraTarget;
 	void Start()
 	{
 		DontDestroyOnLoad(gameObject);
+		sceneChange = -1;
+		cameraMove = false;
+		cameraSpeed = 18.0f;
+		cameraTarget = new float[2]
+		{
+			18.0f,
+			0.0f
+		};
 	}
 	void Update ()
 	{
