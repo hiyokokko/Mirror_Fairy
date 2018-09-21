@@ -17,7 +17,7 @@ public class ResultManager : MonoBehaviour
 		else
 		{
 			downText.text = result.down + " Fairy Down";
-			timeText.text = "time ： " + result.time.ToString("F2") + " m";
+			timeText.text = "time " + result.time.ToString("F2") + " m";
 		}
 	}
 }
