@@ -59,7 +59,6 @@ public class MainManager : MonoBehaviour
 		{
 			ResultManager.result = new Result(down, time);
 			SceneChanger.sceneChange = 3;
-			gameOver = false;
 		}
 	}
 }
