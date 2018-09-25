@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 public class MainManager : MonoBehaviour
 {
 	[SerializeField] GameObject[] playerFairies;
