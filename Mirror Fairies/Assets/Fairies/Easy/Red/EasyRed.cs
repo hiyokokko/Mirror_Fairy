@@ -26,7 +26,7 @@ public class EasyRed : MonoBehaviour
 		move = 2.0f;
 		shotWait = 1.0f;
 		shotTime = shotWait;
-		burretNum = 4;
+		burretNum = 6;
 		burretSpeed = 8.0f;
 	}
 	void Update()
@@ -39,12 +39,14 @@ public class EasyRed : MonoBehaviour
 	{
 		if (shotTime >= shotWait)
 		{
-			burretPos = new Vector2[4]
+			burretPos = new Vector2[6]
 			{
-				new Vector2(transform.position.x + 1, transform.position.y + 1),
-				new Vector2(transform.position.x + 1, transform.position.y - 1),
-				new Vector2(transform.position.x - 1, transform.position.y + 1),
-				new Vector2(transform.position.x - 1, transform.position.y - 1)
+				new Vector2(transform.position.x, transform.position.y + 1),
+				new Vector2(transform.position.x, transform.position.y + 2),
+				new Vector2(transform.position.x, transform.position.y + 3),
+				new Vector2(transform.position.x, transform.position.y - 1),
+				new Vector2(transform.position.x, transform.position.y - 2),
+				new Vector2(transform.position.x, transform.position.y - 3)
 			};
 			try
 			{
