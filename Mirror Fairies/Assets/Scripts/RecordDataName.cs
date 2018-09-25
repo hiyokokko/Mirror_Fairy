@@ -1,4 +1,4 @@
-﻿enum SaveDataName
+﻿enum RecordDataName
 {
 	EasyKill,
 	EasyTime

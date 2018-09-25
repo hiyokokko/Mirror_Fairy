@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 public class ResultManager : MonoBehaviour
 {
@@ -9,16 +10,39 @@ public class ResultManager : MonoBehaviour
 	int sceneNum;
 	void Start ()
 	{
-		if (result.down == MainManager.enemyNum)
+		RecordSave();
+		if (result.kill == MainManager.enemyNum)
 		{
 			congratulations.SetActive(true);
 			downText.text = "ALL FAIRY KILL!!";
-			timeText.text = "TIME _ " + result.time.ToString("F2") + " m";
+			timeText.text = "TIME _ " + result.time + " s";
 		}
 		else
 		{
-			downText.text = result.down + " FAIRY KILL";
-			timeText.text = "YOUR DEATH";
+			downText.text = "KILL _ " + result.kill;
+			timeText.text = "TIME _ " + result.time + " s";
+		}
+	}
+	void RecordSave()
+	{
+		if (PlayerPrefs.HasKey(SelectManager.recordDataName[0])){
+			if (PlayerPrefs.GetInt(SelectManager.recordDataName[0]) < result.kill)
+			{
+				PlayerPrefs.SetInt(SelectManager.recordDataName[0], result.kill);
+				PlayerPrefs.SetFloat(SelectManager.recordDataName[1], result.time);
+				PlayerPrefs.Save();
+			}
+			else if (PlayerPrefs.GetInt(SelectManager.recordDataName[0]) == result.kill && PlayerPrefs.GetFloat(SelectManager.recordDataName[1]) > result.time)
+			{
+				PlayerPrefs.SetFloat(SelectManager.recordDataName[1], result.time);
+				PlayerPrefs.Save();
+			}
+		}
+		else
+		{
+			PlayerPrefs.SetInt(SelectManager.recordDataName[0], result.kill);
+			PlayerPrefs.SetFloat(SelectManager.recordDataName[1], result.time);
+			PlayerPrefs.Save();
 		}
 	}
 	public void Select()
@@ -34,11 +58,11 @@ public class ResultManager : MonoBehaviour
 }
 public class Result
 {
-	public int down;
+	public int kill;
 	public float time;
-	public Result(int down, float time)
+	public Result(int kill, float time)
 	{
-		this.down = down;
+		this.kill = kill;
 		this.time = time;
 	}
 }

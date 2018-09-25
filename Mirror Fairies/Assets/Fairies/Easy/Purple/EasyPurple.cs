@@ -68,7 +68,7 @@ public class EasyPurple : MonoBehaviour
 			Destroy(col.gameObject);
 			if (health <= 0)
 			{
-				MainManager.down++;
+				MainManager.kill++;
 				MainManager.gameOver = true;
 				Destroy(gameObject);
 			}

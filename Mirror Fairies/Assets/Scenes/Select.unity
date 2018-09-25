@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 996428383}
   - component: {fileID: 996428382}
   m_Layer: 5
-  m_Name: BestTime
+  m_Name: RecordTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -747,7 +747,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'YOUR BEST TIME _ '
+  m_Text: 'RECORD TIME _ '
 --- !u!222 &996428383
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1094,7 +1094,7 @@ GameObject:
   - component: {fileID: 1469735372}
   - component: {fileID: 1469735371}
   m_Layer: 5
-  m_Name: BestKill
+  m_Name: RecordKill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1150,7 +1150,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'YOUR BEST KILL _ '
+  m_Text: 'RECORD KILL _ '
 --- !u!222 &1469735372
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1185,6 +1185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0908a2e52e701e543916a12c89e6acbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recordKillText: {fileID: 1469735371}
+  recordTimeText: {fileID: 996428382}
 --- !u!4 &1980832813
 Transform:
   m_ObjectHideFlags: 0

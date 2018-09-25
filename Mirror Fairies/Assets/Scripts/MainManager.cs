@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 public class MainManager : MonoBehaviour
 {
 	[SerializeField] GameObject[] playerFairies;
@@ -6,7 +7,7 @@ public class MainManager : MonoBehaviour
 	Vector2 playerPos;
 	Vector2 enemyPos;
 	int diff;
-	public static int down;
+	public static int kill;
 	float time;
 	public static int enemyNum;
 	int enemyArrayPoint;
@@ -19,7 +20,7 @@ public class MainManager : MonoBehaviour
 		playerPos = new Vector2(-13.0f, 0.0f);
 		enemyPos = new Vector2(13.0f, 0.0f);
 		diff = SelectManager.diff;
-		down = -1;
+		kill = -1;
 		time = 0.0f;
 		enemyNum = 6;
 		enemyArrayPoint = enemyNum * diff;
@@ -46,8 +47,8 @@ public class MainManager : MonoBehaviour
 			enemySpawnTime += Time.deltaTime;
 			if (enemySpawnTime >= enemySpawnWait)
 			{
-				down++;
-				Instantiate(enemyFairies[enemyArrayPoint + down], enemyPos, Quaternion.identity);
+				kill++;
+				Instantiate(enemyFairies[enemyArrayPoint + kill], enemyPos, Quaternion.identity);
 				enemySpawnTime = 0.0f;
 				enemySpawn = false;
 			}
@@ -57,7 +58,7 @@ public class MainManager : MonoBehaviour
 	{
 		if (gameOver)
 		{
-			ResultManager.result = new Result(down, time);
+			ResultManager.result = new Result(kill, float.Parse(time.ToString("F2")));
 			SceneChanger.sceneChange = 3;
 		}
 	}
