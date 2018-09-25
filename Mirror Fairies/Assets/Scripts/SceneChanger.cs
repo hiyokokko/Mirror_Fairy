@@ -18,13 +18,12 @@ public class SceneChanger : MonoBehaviour
 			0.0f
 		};
 	}
-	void Update ()
+	void Update()
 	{
 		SceneChange();
 	}
 	void SceneChange()
 	{
-		
 		if (sceneChange != -1 && !cameraMove)
 		{
 			cameraMove = true;

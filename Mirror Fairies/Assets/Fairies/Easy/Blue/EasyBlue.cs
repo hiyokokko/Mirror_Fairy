@@ -15,7 +15,7 @@ public class EasyBlue : MonoBehaviour
 	int shotCount;
 	int burretNum;
 	Vector2[] burretPos;
-	float[][] burretRot;
+	float[] burretRot;
 	float burretSpeed;
 	void Start ()
 	{
@@ -26,22 +26,12 @@ public class EasyBlue : MonoBehaviour
 		move = 2.0f;
 		shotWait = 1.0f;
 		shotTime = shotWait;
-		shotCount = 0;
-		burretNum = 2;
-		burretRot = new float[2][]
+		burretNum = 3;
+		burretRot = new float[3]
 		{
-			new float[3]
-			{
-				120.0f,
-				135.0f,
-				150.0f
-			},
-			new float[3]
-			{
-				-120.0f,
-				-135.0f,
-				-150.0f
-			}
+			135.0f,
+			-180.0f,
+			-135.0f
 		};
 		burretSpeed = 4.0f;
 	}
@@ -55,14 +45,15 @@ public class EasyBlue : MonoBehaviour
 	{
 		if (shotTime >= shotWait)
 		{
-			burretPos = new Vector2[2]
+			burretPos = new Vector2[3]
 			{
-				new Vector2(pos.x, transform.position.y + 1),
-				new Vector2(pos.x, transform.position.y - 1)
+				new Vector2(transform.position.x - 1, transform.position.y + 1),
+				new Vector2(transform.position.x - 1, transform.position.y),
+				new Vector2(transform.position.x - 1, transform.position.y - 1)
 			};
 			for (int i = 0; i < burretNum; i++)
 			{
-				burretInst = Instantiate(burret, burretPos[i], Quaternion.Euler(0.0f, 0.0f, burretRot[i][shotCount % 3]));
+				burretInst = Instantiate(burret, burretPos[i], Quaternion.Euler(0.0f, 0.0f, burretRot[i]));
 				burretInst.GetComponent<EasyBlueBurret>().speed = burretSpeed;
 			}
 			shotTime -= shotWait;
