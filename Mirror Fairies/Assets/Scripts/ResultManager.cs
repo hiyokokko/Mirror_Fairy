@@ -10,17 +10,7 @@ public class ResultManager : MonoBehaviour
 	void Start ()
 	{
 		RecordSave();
-		if (result.kill == MainManager.enemyNum)
-		{
-			congratulations.SetActive(true);
-			downText.text = "ALL FAIRY KILL!!";
-			timeText.text = "TIME _ " + result.time + " s";
-		}
-		else
-		{
-			downText.text = "KILL _ " + result.kill;
-			timeText.text = "TIME _ " + result.time + " s";
-		}
+		ResultDisplay();
 	}
 	void RecordSave()
 	{
@@ -42,6 +32,20 @@ public class ResultManager : MonoBehaviour
 			PlayerPrefs.SetInt(SelectManager.recordDataName[0], result.kill);
 			PlayerPrefs.SetFloat(SelectManager.recordDataName[1], result.time);
 			PlayerPrefs.Save();
+		}
+	}
+	void ResultDisplay()
+	{
+		if (result.kill == MainManager.enemyNum)
+		{
+			congratulations.SetActive(true);
+			downText.text = "ALL FAIRY KILL!!";
+			timeText.text = "TIME _ " + result.time + " s";
+		}
+		else
+		{
+			downText.text = "KILL _ " + result.kill;
+			timeText.text = "TIME _ " + result.time + " s";
 		}
 	}
 	public void Select()

@@ -9,6 +9,7 @@ public class SelectManager : MonoBehaviour
 	int sceneNum;
 	void Start()
 	{
+		diff = 0;
 		recordDataName = new string[2];
 		RecordDisplay();
 	}
