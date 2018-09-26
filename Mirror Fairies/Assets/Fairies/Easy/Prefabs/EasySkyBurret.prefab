@@ -69,6 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0}
+  speed: 0
+  moveWait: 0
 --- !u!212 &212826612169576068
 SpriteRenderer:
   m_ObjectHideFlags: 1
