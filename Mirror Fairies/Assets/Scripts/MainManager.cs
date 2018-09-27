@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+/// <summary>
+/// メインシーンの管理。
+/// </summary>
 public class MainManager : MonoBehaviour
 {
 	[SerializeField] GameObject[] playerFairies;
@@ -32,33 +35,36 @@ public class MainManager : MonoBehaviour
 	void Update ()
 	{
 		time += Time.deltaTime;
-		EnemySpawn();
-		GameOver();
+		if (enemySpawn) { EnemySpawn(); }
+		if (gameOver) { GameOver(); }
 	}
+	/// <summary>
+	/// プレイヤーをスポーンさせる。
+	/// </summary>
 	void PlayerSpawn()
 	{
 		Instantiate(playerFairies[diff], playerPos, Quaternion.identity);
 	}
+	/// <summary>
+	/// 敵キャラをスポーンさせる。
+	/// </summary>
 	void EnemySpawn()
 	{
-		if (enemySpawn)
+		enemySpawnTime += Time.deltaTime;
+		if (enemySpawnTime >= enemySpawnWait)
 		{
-			enemySpawnTime += Time.deltaTime;
-			if (enemySpawnTime >= enemySpawnWait)
-			{
-				kill++;
-				Instantiate(enemyFairies[enemyArrayPoint + kill], enemyPos, Quaternion.identity);
-				enemySpawnTime = 0.0f;
-				enemySpawn = false;
-			}
+			kill++;
+			Instantiate(enemyFairies[enemyArrayPoint + kill], enemyPos, Quaternion.identity);
+			enemySpawnTime = 0.0f;
+			enemySpawn = false;
 		}
 	}
+	/// <summary>
+	/// ゲームを終了させる。
+	/// </summary>
 	void GameOver()
 	{
-		if (gameOver)
-		{
-			ResultManager.result = new Result(kill, float.Parse(time.ToString("F2")));
-			SceneChanger.sceneChange = 3;
-		}
+		ResultManager.result = new Result(kill, float.Parse(time.ToString("F2")));
+		SceneChanger.sceneChange = 3;
 	}
 }

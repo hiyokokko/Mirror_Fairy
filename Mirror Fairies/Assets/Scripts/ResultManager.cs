@@ -1,17 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+/// <summary>
+/// リザルトシーンの管理。
+/// </summary>
 public class ResultManager : MonoBehaviour
 {
 	[SerializeField] GameObject congratulations;
-	[SerializeField] Text downText;
+	[SerializeField] Text killText;
 	[SerializeField] Text timeText;
 	public static Result result;
-	int sceneNum;
 	void Start ()
 	{
 		RecordSave();
 		ResultDisplay();
 	}
+	/// <summary>
+	/// 新記録が出たらセーブする。
+	/// </summary>
 	void RecordSave()
 	{
 		if (PlayerPrefs.HasKey(SelectManager.recordDataName[0])){
@@ -34,31 +39,35 @@ public class ResultManager : MonoBehaviour
 			PlayerPrefs.Save();
 		}
 	}
+	/// <summary>
+	/// リザルトを表示する。
+	/// </summary>
 	void ResultDisplay()
 	{
 		if (result.kill == MainManager.enemyNum)
 		{
 			congratulations.SetActive(true);
-			downText.text = "ALL FAIRY KILL!!";
+			killText.text = "ALL FAIRY KILL!!";
 			timeText.text = "TIME _ " + result.time + " s";
 		}
 		else
 		{
-			downText.text = "KILL _ " + result.kill;
+			killText.text = "KILL _ " + result.kill;
 			timeText.text = "TIME _ " + result.time + " s";
 		}
 	}
-	public void Select()
+	/// <summary>
+	/// シーンを切り替える。
+	/// </summary>
+	/// <param name="selectScene">選んだシーン番号</param>
+	public void SelectScene(int selectScene)
 	{
-		sceneNum = 1;
-		SceneChanger.sceneChange = sceneNum;
-	}
-	public void Retry()
-	{
-		sceneNum = 2;
-		SceneChanger.sceneChange = sceneNum;
+		SceneChanger.sceneChange = selectScene;
 	}
 }
+/// <summary>
+/// キル数、経過時間を入れるクラス。
+/// </summary>
 public class Result
 {
 	public int kill;

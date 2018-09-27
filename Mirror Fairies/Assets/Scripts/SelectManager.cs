@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+/// <summary>
+/// セレクトシーンの管理。
+/// </summary>
 public class SelectManager : MonoBehaviour
 {
 	[SerializeField] Text recordKillText;
 	[SerializeField] Text recordTimeText;
 	public static int diff;
 	public static string[] recordDataName;
-	int sceneNum;
 	void Start()
 	{
 		diff = 0;
 		recordDataName = new string[2];
 		RecordDisplay();
 	}
-	public void SelectDiff(int selectDiff)
-	{
-		diff = selectDiff;
-		RecordDisplay();
-	}
+	/// <summary>
+	/// レコードの表示。レコードがなければ NO DATA が表示される。
+	/// </summary>
 	void RecordDisplay()
 	{
 		recordDataName[0] = ((RecordDataName)(diff * 2)).ToString();
@@ -33,9 +33,21 @@ public class SelectManager : MonoBehaviour
 			recordTimeText.text = "RECORD TIME _ NO DATA";
 		}
 	}
-	public void MainScene()
+	/// <summary>
+	/// 難易度を変える。
+	/// </summary>
+	/// <param name="selectDiff">選んだ難易度番号</param>
+	public void SelectDiff(int selectDiff)
 	{
-		sceneNum = 2;
-		SceneChanger.sceneChange = sceneNum;
+		diff = selectDiff;
+		RecordDisplay();
+	}
+	/// <summary>
+	/// シーンを切り替える。
+	/// </summary>
+	/// <param name="selectScene">選んだシーン番号</param>
+	public void SelectScene(int selectScene)
+	{
+		SceneChanger.sceneChange = selectScene;
 	}
 }

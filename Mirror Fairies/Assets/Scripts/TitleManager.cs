@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
+/// <summary>
+/// タイトルシーンの管理。
+/// </summary>
 public class TitleManager : MonoBehaviour
 {
-	int sceneNum;
-	public static bool mobile;
-	void Start()
+	void Update()
 	{
-		mobile = true;
+		if (TouchOperation.GetTouch(0) == TouchInfo.Began) { SelectScene(1); }
 	}
-	public void Select()
+	/// <summary>
+	/// シーンを切り替える。
+	/// </summary>
+	/// <param name="selectScene">選んだシーン番号</param>
+	public void SelectScene(int selectScene)
 	{
-		sceneNum = 1;
-		SceneChanger.sceneChange = sceneNum;
+		SceneChanger.sceneChange = selectScene;
 	}
 }

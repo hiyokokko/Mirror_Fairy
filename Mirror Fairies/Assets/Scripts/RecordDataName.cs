@@ -1,5 +1,10 @@
-﻿enum RecordDataName
+﻿/// <summary>
+/// レコードデータの名前。
+/// </summary>
+enum RecordDataName
 {
 	EasyKill,
-	EasyTime
+	EasyTime,
+	NormalKill,
+	NormalTime
 }

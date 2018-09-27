@@ -1,74 +1,61 @@
 ﻿using UnityEngine;
 public class EasyBlack : MonoBehaviour
 {
-	[SerializeField] GameObject burret;
 	Camera cam;
+	int touchMax;
+	float touchBouder;
+	Vector2 beforePos;
+	[SerializeField] GameObject burret;
 	int attack;
-	int move;
-	GameObject burretInst;
-	float moveRestRight;
-	float moveRestOther;
-	float speed;
 	float shotWait;
 	float shotTime;
-	Vector2 burretPos;
 	float burretSpeed;
-	
-	Vector2 cursorPos;
-	Vector2 clickPos;
-	Vector2 beforePos;
-	Vector2 targetPos;
-	Vector2 movePos;
+	int move;
+	float moveRestRight;
+	float moveRestOther;
 	void Start()
 	{
 		cam = GameObject.Find("Camera").GetComponent<Camera>();
+		touchMax = 2;
+		touchBouder = 12.0f;
 		attack = -1;
-		move = -1;
-		moveRestRight = 3.0f;
-		moveRestOther = 1.0f;
-		speed = 2.0f;
 		shotWait = 0.1f;
 		shotTime = shotWait;
 		burretSpeed = 16.0f;
+		move = -1;
+		moveRestRight = 3.0f;
+		moveRestOther = 1.0f;
 	}
 	void Update()
 	{
 		Touch();
+		if (Input.GetKey(KeyCode.Space)) { Attack(); }
+		if (shotTime < shotWait) { shotTime += Time.deltaTime; }
 	}
-	void Attack()
+	void OnCollisionEnter2D(Collision2D col)
 	{
-		if (shotTime >= shotWait)
-		{
-			burretPos = new Vector2(transform.position.x + 1, transform.position.y);
-			burretInst = Instantiate(burret, burretPos, Quaternion.identity);
-			burretInst.GetComponent<EasyBlackBurret>().speed = burretSpeed;
-			shotTime -= shotWait;
-		}
-		if (shotTime < shotWait)
-		{
-			shotTime += Time.deltaTime;
-		}
+		MainManager.gameOver = true;
+		Destroy(gameObject);
 	}
-	void Move(Vector2 nowPos)
+	void OnTriggerEnter2D(Collider2D col)
 	{
-		targetPos = nowPos - beforePos;
-		transform.Translate(targetPos * Time.deltaTime * speed);
+		MainManager.gameOver = true;
+		Destroy(gameObject);
 	}
 	void Touch()
 	{
-		int maxTouch = 2;
-		for (int i = 0; i < Input.touchCount || i < maxTouch; i++)
+		for (int touchNum = 0; touchNum < Input.touchCount || touchNum < touchMax; touchNum++)
 		{
-			if (TouchOperation.GetTouch(i) == TouchInfo.Began)
+			if (TouchOperation.GetTouch(touchNum) == TouchInfo.Began)
 			{
-				if (TouchOperation.GetTouchWorldPosition(cam, i).x >= 12.0f && attack == -1)
+				if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x >= touchBouder && attack == -1)
 				{
-					attack = i;
+					attack = touchNum;
 				}
-				else if (TouchOperation.GetTouchWorldPosition(cam, i).x < 12.0f && move == -1)
+				if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x < touchBouder && move == -1)
 				{
-					beforePos = TouchOperation.GetTouchWorldPosition(cam, i);
-					move = i;
+					beforePos = TouchOperation.GetTouchWorldPosition(cam, touchNum);
+					move = touchNum;
 				}
 			}
 		}
@@ -82,40 +69,30 @@ public class EasyBlack : MonoBehaviour
 		}
 		if (move != -1)
 		{
-			Move((Vector2)TouchOperation.GetTouchWorldPosition(cam, move));
+			Move(TouchOperation.GetTouchWorldPosition(cam, move));
 			if (TouchOperation.GetTouch(move) == TouchInfo.Ended || TouchOperation.GetTouch(move) == TouchInfo.Canceled)
 			{
 				move = -1;
 			}
 		}
 	}
-	//void Move()
-	//{
-	//	if (Input.GetKey(KeyCode.D) && !EndChecker.EndRight(transform.position.x + moveRestRight))
-	//	{
-	//		transform.position += transform.right * Time.deltaTime * speed;
-	//	}
-	//	else if (Input.GetKey(KeyCode.A) && !EndChecker.EndLeft(transform.position.x - moveRestOther))
-	//	{
-	//		transform.position -= transform.right * Time.deltaTime * speed;
-	//	}
-	//	if (Input.GetKey(KeyCode.W) && !EndChecker.EndTop(transform.position.y + moveRestOther))
-	//	{
-	//		transform.position += transform.up * Time.deltaTime * speed;
-	//	}
-	//	else if (Input.GetKey(KeyCode.S) && !EndChecker.EndBottom(transform.position.y - moveRestOther))
-	//	{
-	//		transform.position -= transform.up * Time.deltaTime * speed;
-	//	}
-	//}
-	void OnTriggerEnter2D(Collider2D col)
+	void Attack()
 	{
-		MainManager.gameOver = true;
-		Destroy(gameObject);
+		if (shotTime >= shotWait)
+		{
+			Vector2 burretPos = new Vector2(transform.position.x + 1, transform.position.y);
+			GameObject burretInst = Instantiate(burret, burretPos, Quaternion.identity);
+			burretInst.GetComponent<EasyBlackBurret>().speed = burretSpeed;
+			shotTime -= shotWait;
+		}
 	}
-	void OnCollisionEnter2D(Collision2D col)
+	void Move(Vector2 afterPos)
 	{
-		MainManager.gameOver = true;
-		Destroy(gameObject);
+		Vector2 targetPos = (afterPos - beforePos) * Time.deltaTime;
+		if (EndChecker.EndRight(transform.position.x + targetPos.x + moveRestRight)) { targetPos.x = 0.0f; }
+		if (EndChecker.EndLeft(transform.position.x + targetPos.x - moveRestOther)) { targetPos.x = 0.0f; }
+		if (EndChecker.EndTop(transform.position.y + targetPos.y + moveRestOther)) { targetPos.y = 0.0f; }
+		if (EndChecker.EndBottom(transform.position.y + targetPos.y - moveRestOther)) { targetPos.y = 0.0f; }
+		transform.Translate(targetPos);
 	}
 }
