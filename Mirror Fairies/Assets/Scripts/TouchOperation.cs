@@ -5,7 +5,7 @@
 public class TouchOperation
 {
 	//マウスで操作するか
-	static bool mouseUse = true;
+	public static bool mouseUse = true;
 	/// <summary>
 	/// タッチ情報を取得(エディタと実機を考慮)
 	/// </summary>
@@ -14,15 +14,22 @@ public class TouchOperation
 	{
 		if (mouseUse)
 		{
-			if (Input.GetMouseButtonDown(0)) { return TouchInfo.Began; }
-			if (Input.GetMouseButton(0)) { return TouchInfo.Moved; }
-			if (Input.GetMouseButtonUp(0)) { return TouchInfo.Ended; }
+			if (Input.GetMouseButtonDown(0)) { return TouchInfo.Start; }
+			if (Input.GetMouseButton(0)) { return TouchInfo.Now; }
+			if (Input.GetMouseButtonUp(0)) { return TouchInfo.End; }
 		}
 		else
 		{
 			if (Input.touchCount > 0)
 			{
-				return (TouchInfo)((int)Input.GetTouch(touchNum).phase);
+				switch (Input.GetTouch(touchNum).phase)
+				{
+					case TouchPhase.Began: return TouchInfo.Start;
+					case TouchPhase.Moved: return TouchInfo.Now;
+					case TouchPhase.Stationary: return TouchInfo.Now;
+					case TouchPhase.Ended: return TouchInfo.End;
+					case TouchPhase.Canceled: return TouchInfo.End;
+				}
 			}
 		}
 		return TouchInfo.None;
@@ -35,16 +42,15 @@ public class TouchOperation
 	{
 		if (mouseUse)
 		{
-			TouchInfo touch = GetTouch(0);
-			if (touch != TouchInfo.None) { return Input.mousePosition; }
+			return Input.mousePosition;
 		}
 		else
 		{
 			if (Input.touchCount > 0)
 			{
 				Touch touch = Input.GetTouch(touchNum);
-				Vector2 TouchPosition = new Vector2(touch.position.x, touch.position.y);
-				return TouchPosition;
+				Vector2 touchPosition = new Vector2(touch.position.x, touch.position.y);
+				return touchPosition;
 			}
 		}
 		return Vector2.zero;
@@ -64,15 +70,11 @@ public class TouchOperation
 public enum TouchInfo
 {
 	//タッチなし
-	None = 99,
+	None = 0,
 	//タッチ開始
-	Began = 0,
-	//タッチ移動
-	Moved = 1,
-	//タッチ静止
-	Stationary = 2,
+	Start = 1,
+	//タッチ中
+	Now = 2,
 	//タッチ終了
-	Ended = 3,
-	//タッチキャンセル
-	Canceled = 4,
+	End = 3,
 }

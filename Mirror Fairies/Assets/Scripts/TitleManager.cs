@@ -6,7 +6,7 @@ public class TitleManager : MonoBehaviour
 {
 	void Update()
 	{
-		if (TouchOperation.GetTouch(0) == TouchInfo.Began) { SelectScene(1); }
+		if (TouchOperation.GetTouch(0) == TouchInfo.End) { SelectScene(1); }
 	}
 	/// <summary>
 	/// シーンを切り替える。

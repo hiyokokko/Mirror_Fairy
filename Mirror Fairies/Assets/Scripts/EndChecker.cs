@@ -3,6 +3,10 @@
 /// </summary>
 public class EndChecker
 {
+	public static float endRight = 16.0f;
+	public static float endLeft = -16.0f;
+	public static float endTop = 9.0f;
+	public static float endBottom = -9.0f;
 	/// <summary>
 	/// 右側のポジションの確認。
 	/// </summary>
@@ -10,7 +14,7 @@ public class EndChecker
 	/// <returns>超えているなら true 超えてないなら false</returns>
 	public static bool EndRight (float x)
 	{
-		if (x >= 16.0f)
+		if (x >= endRight)
 		{
 			return true;
 		}
@@ -26,7 +30,7 @@ public class EndChecker
 	/// <returns>超えているなら true 超えてないなら false</returns>
 	public static bool EndLeft(float x)
 	{
-		if (x <= -16.0f)
+		if (x <= endLeft)
 		{
 			return true;
 		}
@@ -42,7 +46,7 @@ public class EndChecker
 	/// <returns>超えているなら true 超えてないなら false</returns>
 	public static bool EndTop(float y)
 	{
-		if (y >= 9.0f)
+		if (y >= endTop)
 		{
 			return true;
 		}
@@ -58,7 +62,7 @@ public class EndChecker
 	/// <returns>超えているなら true 超えてないなら false</returns>
 	public static bool EndBottom(float y)
 	{
-		if (y <= -9.0f)
+		if (y <= endBottom)
 		{
 			return true;
 		}
