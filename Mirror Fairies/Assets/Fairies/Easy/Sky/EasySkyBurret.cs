@@ -13,16 +13,9 @@ public class EasySkyBurret : MonoBehaviour
 	void Update()
 	{
 		time += Time.deltaTime;
-		Move();
+		if (time >= moveWait) { transform.position += transform.right * Time.deltaTime * speed; }
 		Mirror();
 		Destroy();
-	}
-	void Move()
-	{
-		if (time >= moveWait)
-		{
-			transform.position += transform.right * Time.deltaTime * speed;
-		}
 	}
 	void Mirror()
 	{

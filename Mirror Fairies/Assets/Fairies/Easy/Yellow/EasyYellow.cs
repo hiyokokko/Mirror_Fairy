@@ -4,14 +4,13 @@ public class EasyYellow : MonoBehaviour
 {
 	[SerializeField] GameObject burret;
 	[SerializeField] Text healthText;
-	GameObject burretInst;
 	Vector2 pos;
 	int health;
 	float time;
 	float speed;
 	float move;
-	float shotWait;
-	float shotTime;
+	float attackWait;
+	float attackTime;
 	float burretSpeed;
 	void Start()
 	{
@@ -20,28 +19,16 @@ public class EasyYellow : MonoBehaviour
 		time = 0.0f;
 		speed = 1.0f;
 		move = 2.0f;
-		shotWait = 1.0f;
-		shotTime = shotWait;
+		attackWait = 1.0f;
+		attackTime = attackWait;
 		burretSpeed = 2.0f;
 	}
 	void Update()
 	{
 		time += Time.deltaTime;
-		Shot();
+		if (attackTime >= attackWait) { Attack(); }
+		if (attackTime < attackWait) { attackTime += Time.deltaTime; }
 		transform.position = new Vector2(pos.x, pos.y + Mathf.Sin(time * Mathf.PI / 2 * speed) * move);
-	}
-	void Shot()
-	{
-		if (shotTime >= shotWait)
-		{
-			burretInst = Instantiate(burret, transform.position, Quaternion.identity);
-			burretInst.GetComponent<EasyYellowBurret>().speed = burretSpeed;
-			shotTime -= shotWait;
-		}
-		if (shotTime < shotWait)
-		{
-			shotTime += Time.deltaTime;
-		}
 	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
@@ -56,5 +43,11 @@ public class EasyYellow : MonoBehaviour
 			}
 			healthText.text = health.ToString();
 		}
+	}
+	void Attack()
+	{
+		GameObject burretInst = Instantiate(burret, transform.position, Quaternion.identity);
+		burretInst.GetComponent<EasyYellowBurret>().speed = burretSpeed;
+		attackTime -= attackWait;
 	}
 }

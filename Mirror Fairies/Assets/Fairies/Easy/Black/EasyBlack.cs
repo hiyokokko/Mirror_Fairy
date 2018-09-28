@@ -1,21 +1,20 @@
 ﻿using UnityEngine;
 public class EasyBlack : MonoBehaviour
 {
+	[SerializeField] GameObject burret;
 	Camera cam;
 	int mouseUse;
 	int touchMax;
 	float touchBouder;
 	Vector2 beforePos;
 	Vector2 touchBeforePos;
-	[SerializeField] GameObject burret;
 	int attack;
-	float shotWait;
-	float shotTime;
+	float attackWait;
+	float attackTime;
 	float burretSpeed;
 	int move;
 	float moveRestRight;
 	float moveRestOther;
-	float moveSpeed;
 	void Start()
 	{
 		cam = GameObject.Find("Camera").GetComponent<Camera>();
@@ -24,8 +23,8 @@ public class EasyBlack : MonoBehaviour
 		touchMax = 2;
 		touchBouder = 12.0f;
 		attack = -1;
-		shotWait = 0.1f;
-		shotTime = shotWait;
+		attackWait = 0.1f;
+		attackTime = attackWait;
 		burretSpeed = 16.0f;
 		move = -1;
 		moveRestRight = 3.0f;
@@ -34,7 +33,7 @@ public class EasyBlack : MonoBehaviour
 	void Update()
 	{
 		Touch();
-		if (shotTime < shotWait) { shotTime += Time.deltaTime; }
+		if (attackTime < attackWait) { attackTime += Time.deltaTime; }
 	}
 	void OnCollisionEnter2D(Collision2D col)
 	{
@@ -66,7 +65,7 @@ public class EasyBlack : MonoBehaviour
 		}
 		if (attack != -1 || Input.GetKey(KeyCode.Space))
 		{
-			Attack();
+			if (attackTime >= attackWait) { Attack(); }
 			if (TouchOperation.GetTouch(attack) == TouchInfo.End)
 			{
 				attack = -1;
@@ -83,13 +82,10 @@ public class EasyBlack : MonoBehaviour
 	}
 	void Attack()
 	{
-		if (shotTime >= shotWait)
-		{
-			Vector2 burretPos = new Vector2(transform.position.x + 1, transform.position.y);
-			GameObject burretInst = Instantiate(burret, burretPos, Quaternion.identity);
-			burretInst.GetComponent<EasyBlackBurret>().speed = burretSpeed;
-			shotTime -= shotWait;
-		}
+		Vector2 burretPos = new Vector2(transform.position.x + 1, transform.position.y);
+		GameObject burretInst = Instantiate(burret, burretPos, Quaternion.identity);
+		burretInst.GetComponent<EasyBlackBurret>().speed = burretSpeed;
+		attackTime -= attackWait;
 	}
 	void Move(Vector2 touchAfterPos)
 	{

@@ -5,7 +5,7 @@
 public class TouchOperation
 {
 	//マウスで操作するか
-	public static bool mouseUse = true;
+	public static bool mouseUse = false;
 	/// <summary>
 	/// タッチ情報を取得(エディタと実機を考慮)
 	/// </summary>
