@@ -8,7 +8,7 @@ public class ResultManager : MonoBehaviour
 	[SerializeField] GameObject congratulations;
 	[SerializeField] Text killText;
 	[SerializeField] Text timeText;
-	public static Result result;
+	public static Record result;
 	void Start ()
 	{
 		RecordSave();
@@ -68,11 +68,11 @@ public class ResultManager : MonoBehaviour
 /// <summary>
 /// キル数、経過時間を入れるクラス。
 /// </summary>
-public class Result
+public class Record
 {
 	public int kill;
 	public float time;
-	public Result(int kill, float time)
+	public Record(int kill, float time)
 	{
 		this.kill = kill;
 		this.time = time;

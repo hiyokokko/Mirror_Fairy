@@ -5,14 +5,14 @@
 public class TouchOperation
 {
 	//マウスで操作するか
-	public static bool mouseUse = true;
+	public static bool windows = true;
 	/// <summary>
 	/// タッチ情報を取得(エディタと実機を考慮)
 	/// </summary>
 	/// <returns>タッチ情報。タッチされていない場合は TouchInfo.None</returns>
 	public static TouchInfo GetTouch(int touchNum)
 	{
-		if (mouseUse)
+		if (windows)
 		{
 			if (Input.GetMouseButtonDown(0)) { return TouchInfo.Start; }
 			if (Input.GetMouseButton(0)) { return TouchInfo.Now; }
@@ -40,7 +40,7 @@ public class TouchOperation
 	/// <returns>タッチポジション。タッチされていない場合は (0, 0, 0)</returns>
 	public static Vector2 GetTouchPosition(int touchNum)
 	{
-		if (mouseUse)
+		if (windows)
 		{
 			return Input.mousePosition;
 		}

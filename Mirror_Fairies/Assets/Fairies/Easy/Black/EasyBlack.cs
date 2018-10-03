@@ -18,8 +18,8 @@ public class EasyBlack : MonoBehaviour
 	void Start()
 	{
 		cam = GameObject.Find("Camera").GetComponent<Camera>();
-		if (TouchOperation.mouseUse) { mouseUse = 1; };
-		if (!TouchOperation.mouseUse) { mouseUse = 0; };
+		if (TouchOperation.windows) { mouseUse = 1; };
+		if (!TouchOperation.windows) { mouseUse = 0; };
 		touchMax = 2;
 		touchBouder = 12.0f;
 		attack = -1;

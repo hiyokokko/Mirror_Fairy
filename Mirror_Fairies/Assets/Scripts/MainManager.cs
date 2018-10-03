@@ -64,7 +64,7 @@ public class MainManager : MonoBehaviour
 	/// </summary>
 	void GameOver()
 	{
-		ResultManager.result = new Result(kill, float.Parse(time.ToString("F2")));
+		ResultManager.result = new Record(kill, float.Parse(time.ToString("F2")));
 		SceneChanger.sceneChange = 3;
 	}
 }
