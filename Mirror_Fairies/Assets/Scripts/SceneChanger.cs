@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-/// <summary>
-/// シーンの切り替え管理。
-/// </summary>
 public class SceneChanger : MonoBehaviour
 {
 	public static int sceneChange;
@@ -25,9 +22,6 @@ public class SceneChanger : MonoBehaviour
 	{
 		SceneChange();
 	}
-	/// <summary>
-	/// シーンの切り替え、切り替えの時のカメラ演出。
-	/// </summary>
 	void SceneChange()
 	{
 		if (sceneChange != -1 && !cameraMove)

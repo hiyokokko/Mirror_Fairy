@@ -42,8 +42,8 @@ public class EasyPurple : MonoBehaviour
 			Destroy(col.gameObject);
 			if (health <= 0)
 			{
-				MainManager.kill++;
-				MainManager.gameOver = true;
+				Main.kill++;
+				Main.gameOver = true;
 				Destroy(gameObject);
 			}
 			healthText.text = health.ToString();

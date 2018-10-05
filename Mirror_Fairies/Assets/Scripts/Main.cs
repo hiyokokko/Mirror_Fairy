@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
-/// <summary>
-/// メインシーンの管理。
-/// </summary>
-public class MainManager : MonoBehaviour
+public class Main : MonoBehaviour
 {
 	[SerializeField] GameObject[] playerFairies;
 	[SerializeField] GameObject[] enemyFairies;
 	Vector2 playerPos;
 	Vector2 enemyPos;
-	int diff;
 	public static int kill;
 	float time;
 	public static int enemyNum;
@@ -21,11 +17,10 @@ public class MainManager : MonoBehaviour
 	{
 		playerPos = new Vector2(-13.0f, 0.0f);
 		enemyPos = new Vector2(13.0f, 0.0f);
-		diff = SelectManager.diff;
 		kill = -1;
 		time = 0.0f;
 		enemyNum = 6;
-		enemyArrayPoint = enemyNum * diff;
+		enemyArrayPoint = enemyNum * Select.diff;
 		enemySpawn = true;
 		enemySpawnWait = 5.0f;
 		enemySpawnTime = 0.0f;
@@ -38,16 +33,10 @@ public class MainManager : MonoBehaviour
 		if (enemySpawn) { EnemySpawn(); }
 		if (gameOver) { GameOver(); }
 	}
-	/// <summary>
-	/// プレイヤーをスポーンさせる。
-	/// </summary>
 	void PlayerSpawn()
 	{
-		Instantiate(playerFairies[diff], playerPos, Quaternion.identity);
+		Instantiate(playerFairies[Select.diff], playerPos, Quaternion.identity);
 	}
-	/// <summary>
-	/// 敵キャラをスポーンさせる。
-	/// </summary>
 	void EnemySpawn()
 	{
 		enemySpawnTime += Time.deltaTime;
@@ -59,12 +48,10 @@ public class MainManager : MonoBehaviour
 			enemySpawn = false;
 		}
 	}
-	/// <summary>
-	/// ゲームを終了させる。
-	/// </summary>
 	void GameOver()
 	{
-		ResultManager.result = new Record(kill, float.Parse(time.ToString("F2")));
+		Result.resultRecordData = new RecordData(kill = kill >= 0 ? kill : 0, float.Parse(time.ToString("F2")));
 		SceneChanger.sceneChange = 3;
+		gameOver = false;
 	}
 }

@@ -37,12 +37,12 @@ public class EasyBlack : MonoBehaviour
 	}
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		MainManager.gameOver = true;
+		Main.gameOver = true;
 		Destroy(gameObject);
 	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		MainManager.gameOver = true;
+		Main.gameOver = true;
 		Destroy(gameObject);
 	}
 	void Touch()

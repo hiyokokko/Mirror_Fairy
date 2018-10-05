@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-public class RankingManager : MonoBehaviour
+public class Ranking : MonoBehaviour
 {
 	[SerializeField] InputField nameInput;
 	[SerializeField] InputField passInput;
@@ -8,12 +8,15 @@ public class RankingManager : MonoBehaviour
 	public void Entry()
 	{
 		string os = TouchOperation.windows ? "Windows" : "Andloid";
-		string diff = ((DiffName)SelectManager.diff).ToString();
+		string diff = ((DiffName)Select.diff).ToString();
 		string name = nameInput.text;
 		string pass = passInput.text;
-		if (PlayerPrefs.HasKey(SelectManager.recordDataName[0]) && name != "" && pass != "")
+		if (Record.recordData.kill >= 1 && name != "" && pass != "")
 		{
-			//EntryText.text = FirebaseManager.RankingDataWrite(os, diff, name, pass);
+			FirebaseManager.RankingDataWrite(os, diff, name, pass).ContinueWith(task =>
+			{
+				EntryText.text = task.Result;
+			});
 		}
 	}
 }

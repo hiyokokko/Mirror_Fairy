@@ -51,7 +51,7 @@ public class EasySky : MonoBehaviour
 			Destroy(col.gameObject);
 			if (health <= 0)
 			{
-				MainManager.enemySpawn = true;
+				Main.enemySpawn = true;
 				Destroy(gameObject);
 			}
 			healthText.text = health.ToString();
