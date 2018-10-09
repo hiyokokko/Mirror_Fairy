@@ -661,8 +661,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   congratulations: {fileID: 1521768}
-  killText: {fileID: 352556730}
-  timeText: {fileID: 91559116}
+  resultKillText: {fileID: 352556730}
+  resultTimeText: {fileID: 91559116}
 --- !u!4 &778920521
 Transform:
   m_ObjectHideFlags: 0

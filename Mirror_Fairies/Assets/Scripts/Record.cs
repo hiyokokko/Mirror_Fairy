@@ -3,13 +3,12 @@ using UnityEngine.UI;
 public class Record
 {
 	public static RecordData recordData;
-	public static bool noRecordData;
 	public static void RecordDisplay(Text recordKillText, Text recordTimeText)
 	{
-		recordData = new RecordData(PlayerPrefs.GetInt(((RecordDataName)(Select.diff * 2)).ToString()),
-									PlayerPrefs.GetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString()));
-		if (noRecordData = recordData.kill == 0 && recordData.time == 0.0f ? true : false)
+		if (PlayerPrefs.HasKey(((RecordDataName)(Select.diff * 2)).ToString()))
 		{
+			recordData = new RecordData(PlayerPrefs.GetInt(((RecordDataName)(Select.diff * 2)).ToString()),
+										PlayerPrefs.GetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString()));
 			recordKillText.text = "RECORD KILL _ " + recordData.kill;
 			recordTimeText.text = "RECORD TIME _ " + recordData.time;
 		}
@@ -21,19 +20,19 @@ public class Record
 	}
 	public static bool RecordUpdate(RecordData recordData)
 	{
-		if (!noRecordData)
+		if (PlayerPrefs.HasKey(((RecordDataName)(Select.diff * 2)).ToString()))
 		{
 			if (Record.recordData.kill < recordData.kill)
 			{
-				PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), recordData.kill);
-				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), recordData.time);
+				PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), (int)recordData.kill);
+				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), (float)recordData.time);
 				PlayerPrefs.Save();
 				Record.recordData = new RecordData(recordData.kill, recordData.time);
 				return true;
 			}
 			else if (Record.recordData.kill == recordData.kill && Record.recordData.time > recordData.time)
 			{
-				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), recordData.time);
+				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), (float)recordData.time);
 				PlayerPrefs.Save();
 				Record.recordData = new RecordData(recordData.kill, recordData.time);
 				return true;
@@ -45,8 +44,8 @@ public class Record
 		}
 		else
 		{
-			PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), recordData.kill);
-			PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), recordData.time);
+			PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), (int)recordData.kill);
+			PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), (float)recordData.time);
 			PlayerPrefs.Save();
 			Record.recordData = new RecordData(recordData.kill, recordData.time);
 			return true;
@@ -55,9 +54,9 @@ public class Record
 }
 public class RecordData
 {
-	public int kill;
-	public float time;
-	public RecordData(int kill, float time)
+	public long kill;
+	public double time;
+	public RecordData(long kill, double time)
 	{
 		this.kill = kill;
 		this.time = time;
