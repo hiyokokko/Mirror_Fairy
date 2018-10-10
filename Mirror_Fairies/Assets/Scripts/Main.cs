@@ -6,7 +6,8 @@ public class Main : MonoBehaviour
 	Vector2 playerPos;
 	Vector2 enemyPos;
 	public static int kill;
-	float time;
+	public static float time;
+	public static float killTime;
 	public static int enemyNum;
 	int enemyArrayPoint;
 	public static bool enemySpawn;
@@ -17,7 +18,7 @@ public class Main : MonoBehaviour
 	{
 		playerPos = new Vector2(-13.0f, 0.0f);
 		enemyPos = new Vector2(13.0f, 0.0f);
-		kill = -1;
+		kill = -0;
 		time = 0.0f;
 		enemyNum = 6;
 		enemyArrayPoint = enemyNum * Select.diff;
@@ -42,7 +43,6 @@ public class Main : MonoBehaviour
 		enemySpawnTime += Time.deltaTime;
 		if (enemySpawnTime >= enemySpawnWait)
 		{
-			kill++;
 			Instantiate(enemyFairies[enemyArrayPoint + kill], enemyPos, Quaternion.identity);
 			enemySpawnTime = 0.0f;
 			enemySpawn = false;
@@ -50,7 +50,7 @@ public class Main : MonoBehaviour
 	}
 	void GameOver()
 	{
-		Result.resultRecordData = new RecordData(kill = kill >= 0 ? kill : 0, float.Parse(time.ToString("F2")));
+		Result.resultRecordData = new RecordData(kill, float.Parse(killTime.ToString("F2")));
 		SceneChanger.sceneChange = 3;
 		gameOver = false;
 	}

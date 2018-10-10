@@ -41,6 +41,8 @@ public class EasyRed : MonoBehaviour
 			Destroy(col.gameObject);
 			if (health <= 0)
 			{
+				Main.kill++;
+				Main.killTime = Main.time;
 				Main.enemySpawn = true;
 				Destroy(gameObject);
 			}

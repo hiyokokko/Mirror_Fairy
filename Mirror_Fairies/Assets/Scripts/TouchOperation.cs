@@ -4,7 +4,7 @@
 /// </summary>
 public class TouchOperation
 {
-	//マウスで操作するか
+	//PCですか?
 	public static bool windows = true;
 	/// <summary>
 	/// タッチ情報を取得(エディタと実機を考慮)
