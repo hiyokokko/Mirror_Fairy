@@ -20,6 +20,7 @@ public class Main : MonoBehaviour
 		enemyPos = new Vector2(13.0f, 0.0f);
 		kill = -0;
 		time = 0.0f;
+		killTime = 0.0f;
 		enemyNum = 6;
 		enemyArrayPoint = enemyNum * Select.diff;
 		enemySpawn = true;
