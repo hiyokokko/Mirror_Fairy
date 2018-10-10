@@ -1,7 +1,6 @@
 ﻿using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
-using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,126 +8,119 @@ using System.Threading.Tasks;
 using UnityEngine;
 public class FirebaseManager : MonoBehaviour
 {
-	static List<RankingData> rankingDataList = new List<RankingData>();
-	static Dictionary<string, RecordData> dataDict = new Dictionary<string, RecordData>();
-	public static DatabaseReference databaseReference;
+	static DatabaseReference databaseReference;
 	void Start()
 	{
 		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://mirrorfairies.firebaseio.com/");
 		databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 	}
-
-	public static Task<List<RankingData>> RankingDataRead()
+	/// <summary>
+	/// ランキングデータをList化し読み込む。
+	/// </summary>
+	/// <returns>List化されたランキングデータ。順位通りに並んでいる。</returns>
+	public static Task<List<RankingData>> RankingDataRead(string path)
 	{
-		Debug.Log("ランキング集計しゅる～");
-		string os = TouchOperation.windows ? "Windows" : "Andloid";
-		string diffName = ((DiffName)Select.diff).ToString();
-		string path = "Ranking/" + os + "/" + diffName + "/";
 		return databaseReference.Child(path).GetValueAsync().ContinueWith(task =>
 		{
-			try {
-		Debug.Log("ランキング集計処理開始");
-		DataSnapshot dataSnapshot = task.Result;
-		IEnumerator<DataSnapshot> en = dataSnapshot.Children.GetEnumerator();
-			while (en.MoveNext())
+			List<RankingData> rankingDataList = new List<RankingData>();
+			if (task.IsCompleted)
 			{
-				DataSnapshot data = en.Current;
-				try
+				DataSnapshot dataSnapshot = task.Result;
+				IEnumerator<DataSnapshot> enumerator = dataSnapshot.Children.GetEnumerator();
+				while (enumerator.MoveNext())
 				{
-						Debug.Log("いいぞ");
+					DataSnapshot current = enumerator.Current;
 					RankingData rankingData = new RankingData
-					((string)data.Child("name").GetValue(true),
-					(string)data.Child("password").GetValue(true),
-					new RecordData((long)data.Child("kill").GetValue(true),
-					(double)data.Child("time").GetValue(true)));
+					(
+						(string)current.Child("name").GetValue(true),
+						(string)current.Child("password").GetValue(true),
+						(long)current.Child("kill").GetValue(true),
+						(double)current.Child("time").GetValue(true)
+					);
 					rankingDataList.Add(rankingData);
-					//dataDict.Add((string)data.Child("name").GetValue(true), new RecordData((int)data.Child("kill").GetValue(true), (float)data.Child("time").GetValue(true)));
 				}
-				catch (Exception ex)
-				{
-					Debug.Log(ex.Message);
-				}
-			}
-			//List<KeyValuePair<string, RecordData>> dataList = new List<KeyValuePair<string, RecordData>>(dataDict);
-			//dataList.Sort(Compare);
-			//foreach (var a in dataList)
-			//{
-			//	Debug.Log(dataList);
-			//}
-			//return dataList;
-			rankingDataList.Sort(Compare);
-			}catch (Exception ex)
-			{
-				Debug.Log(ex.Message);
+				rankingDataList.Sort(Compare);
 			}
 			return rankingDataList;
 		});
 	}
-	static int Compare(RankingData a, RankingData b)
+	/// <summary>
+	/// データの有無、パスワード一致確認してデータベースへランキングデータを書き込む。
+	/// </summary>
+	/// <returns>書き込んだなら true。書き込んでいないなら false。</returns>
+	public static Task<bool> RankingDataWrite(string path, string name, string password)
 	{
-		if (a.kill < b.kill)
-		{
-			return 1;
-		}
-		else if (a.kill > b.kill)
-		{
-			return -1;
-		}
-		else
-		{
-			if (a.time > b.time)
-			{
-				return 1;
-			}
-			else if (a.time < b.time)
-			{
-				return -1;
-			}
-			else
-			{
-				return a.name.CompareTo(b.name);
-			}
-		}
-	}
-
-
-
-	public static Task<string> RankingDataWrite(string name, string password)
-	{
-		string os = TouchOperation.windows ? "Windows" : "Andloid";
-		string diffName = ((DiffName)Select.diff).ToString();
-		string path = "Ranking/" + os + "/" + diffName + "/" + name + "/";
-		string hashPassword = GetHashedTextString(password);
-		return databaseReference.Child(path).GetValueAsync().ContinueWith(task =>
+		return databaseReference.Child(path + name).GetValueAsync().ContinueWith(task =>
 		{
 			if (task.IsCompleted)
 			{
+				string hashPassword = GetHashedTextString(password);
 				DataSnapshot dataSnapshot = task.Result;
-				if (dataSnapshot.GetValue(true) == null)
+				if (dataSnapshot.GetValue(true) == null ||
+					(string)dataSnapshot.Child("password").GetValue(true) == hashPassword)
 				{
-					RankingData rankingData = new RankingData(name, hashPassword, new RecordData(PlayerPrefs.GetInt(((RecordDataName)(Select.diff * 2)).ToString()), PlayerPrefs.GetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString())));
-					databaseReference.Child(path).SetRawJsonValueAsync(JsonUtility.ToJson(rankingData));
-					return "New data create";
-				}
-				else if ((string)dataSnapshot.Child("password").GetValue(true) == hashPassword)
-				{
-					Debug.Log((string)dataSnapshot.Child("password").GetValue(true));
-					RankingData rankingData = new RankingData(name, hashPassword, new RecordData(PlayerPrefs.GetInt(((RecordDataName)(Select.diff * 2)).ToString()), PlayerPrefs.GetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString())));
-					databaseReference.Child(path).SetRawJsonValueAsync(JsonUtility.ToJson(rankingData));
-					return "Data update";
+					RankingData rankingData = new RankingData
+					(
+						name, 
+						hashPassword,
+						PlayerPrefs.GetInt(((DiffName)(Select.diff)).ToString() + "Kill"), 
+						Conversion.DoubleConversion(PlayerPrefs.GetFloat(((DiffName)(Select.diff)).ToString() + "Time"))
+					);
+					databaseReference.Child(path + name).SetRawJsonValueAsync(JsonUtility.ToJson(rankingData));
+					return true;
 				}
 				else
 				{
-					Debug.Log(dataSnapshot.Child("password").GetValue(true));
-					return "Password miss";
+					return false;
 				}
 			}
 			else
 			{
-				return "No connect";
+				return false;
 			}
 		});
 	}
+	/// <summary>
+	/// 入力された名前のランキングデータの順位を返す。
+	/// </summary>
+	/// <param name="name">入力した名前</param>
+	/// <returns>順位</returns>
+	public static Task<string> RankingResult(string path, string name)
+	{
+		return RankingDataRead(path).ContinueWith(rankingDataRead => 
+		{
+			List<RankingData> rankingDataList = rankingDataRead.Result;
+			for (int rank = 1; rank <= rankingDataList.Count; rank++)
+			{
+				if (rankingDataList[rank - 1].name == name)
+				{
+					switch (rank)
+					{
+						case 1: return "you rank" + "\n" + "1st of " + rankingDataList.Count.ToString();
+						case 2: return "you rank" + "\n" + "2nd of " + rankingDataList.Count.ToString();
+						case 3: return "you rank" + "\n" + "3rd of " + rankingDataList.Count.ToString();
+						default: return "you rank" + "\n" + rank.ToString() + "th of " + rankingDataList.Count.ToString();
+					}
+				}
+			}
+			return "Network Error";
+		});
+	}
+	/// <summary>
+	/// ランキングデータを順位通りに並び替える。
+	/// </summary>
+	/// <returns>キルの降順。キルが同一ならタイムの昇順。タイムも同一なら名前の昇順。</returns>
+	static int Compare(RankingData a, RankingData b)
+	{
+		if (a.kill < b.kill) { return 1; }
+		else if (a.kill > b.kill) { return -1; }
+		else if (a.time > b.time) { return 1; }
+		else if (a.time < b.time) { return -1; }
+		else { return a.name.CompareTo(b.name); }
+	}
+	/// <summary>
+	/// パスワードのハッシュ化。
+	/// </summary>
 	protected static string GetHashedTextString(string password)
 	{
 		// パスワードをUTF-8エンコードでバイト配列として取り出す
@@ -146,19 +138,20 @@ public class FirebaseManager : MonoBehaviour
 		return hashedText.ToString();
 	}
 }
-class Sort { 
-}
+/// <summary>
+/// ランキングデータの構造体。
+/// </summary>
 public class RankingData
 {
 	public string name;
 	public string password;
 	public long kill;
 	public double time;
-	public RankingData(string name, string password, RecordData record)
+	public RankingData(string name, string password, long kill, double time)
 	{
 		this.name = name;
 		this.password = password;
-		kill = record.kill;
-		time = record.time;
+		this.kill = kill;
+		this.time = time;
 	}
 }

@@ -5,46 +5,64 @@ public class Ranking : MonoBehaviour
 {
 	[SerializeField] InputField nameInput;
 	[SerializeField] InputField passInput;
-	[SerializeField] Text EntryText;
+	[SerializeField] Text entryText;
 	[SerializeField] Text[] rankingText;
-	List<RankingData> rankingDataList;
+	string path;
 	int page;
 	void Start()
 	{
+		string os = TouchOperation.windows ? "Windows" : "Andloid";
+		string diffName = ((DiffName)Select.diff).ToString();
+		path = "Ranking/" + os + "/" + diffName + "/";
 		page = 0;
-	}
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Space))
+		FirebaseManager.RankingDataRead(path).ContinueWith(rankingDataRead =>
 		{
-			FirebaseManager.RankingDataRead().ContinueWith(task =>
-			{
-				rankingDataList = task.Result;
-				RankingDisplay();
-			});
-		}
+			RankingDisplay(rankingDataRead.Result);
+		});
 	}
 	public void Entry()
 	{
 		string name = nameInput.text;
 		string pass = passInput.text;
-		if (Record.recordData.kill >= 1 && name != "" && pass != "")
+		if (name != "" && pass != "")
 		{
-			FirebaseManager.RankingDataWrite(name, pass).ContinueWith(task =>
+			entryText.text = "Entry Now";
+			FirebaseManager.RankingDataWrite(path, name, pass).ContinueWith(rankingDataWrite => 
 			{
-				EntryText.text = task.Result;
+				if (rankingDataWrite.Result)
+				{
+					FirebaseManager.RankingResult(path, name).ContinueWith(rankingResult =>
+					{
+						entryText.text = rankingResult.Result;
+					});
+				}
+				else
+				{
+					entryText.text = "Entry Error";
+				}
 			});
 		}
 		else
 		{
-
+			entryText.text = "No Data or Pass Miss";
 		}
 	}
-	void RankingDisplay()
+	void RankingDisplay(List<RankingData> rankingDataList)
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			rankingText[i].text = i + "st:" + rankingDataList[page * 5 + i].name + @"\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+			if (page * 5 + i < rankingDataList.Count)
+			{
+				rankingText[i].text = i + "st:" + rankingDataList[page * 5 + i].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+			}
+			else
+			{
+				rankingText[i].text = "";
+			}
 		}
+	}
+	public void SelectScene(int selectScene)
+	{
+		SceneChanger.sceneChange = selectScene;
 	}
 }

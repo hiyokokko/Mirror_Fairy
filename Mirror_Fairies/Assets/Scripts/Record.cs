@@ -24,15 +24,15 @@ public class Record
 		{
 			if (Record.recordData.kill < recordData.kill)
 			{
-				PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), (int)recordData.kill);
-				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), (float)recordData.time);
+				PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), recordData.kill);
+				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), recordData.time);
 				PlayerPrefs.Save();
 				Record.recordData = new RecordData(recordData.kill, recordData.time);
 				return true;
 			}
 			else if (Record.recordData.kill == recordData.kill && Record.recordData.time > recordData.time)
 			{
-				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), (float)recordData.time);
+				PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), recordData.time);
 				PlayerPrefs.Save();
 				Record.recordData = new RecordData(recordData.kill, recordData.time);
 				return true;
@@ -44,8 +44,8 @@ public class Record
 		}
 		else
 		{
-			PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), (int)recordData.kill);
-			PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), (float)recordData.time);
+			PlayerPrefs.SetInt(((RecordDataName)(Select.diff * 2)).ToString(), recordData.kill);
+			PlayerPrefs.SetFloat(((RecordDataName)(Select.diff * 2 + 1)).ToString(), recordData.time);
 			PlayerPrefs.Save();
 			Record.recordData = new RecordData(recordData.kill, recordData.time);
 			return true;
@@ -54,9 +54,9 @@ public class Record
 }
 public class RecordData
 {
-	public long kill;
-	public double time;
-	public RecordData(long kill, double time)
+	public int kill;
+	public float time;
+	public RecordData(int kill, float time)
 	{
 		this.kill = kill;
 		this.time = time;
