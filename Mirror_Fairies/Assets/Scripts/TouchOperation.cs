@@ -5,7 +5,7 @@
 public class TouchOperation
 {
 	//PCですか?
-	public static bool windows = true;
+	public static bool windows = Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer;
 	/// <summary>
 	/// タッチ情報を取得(エディタと実機を考慮)
 	/// </summary>

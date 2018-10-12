@@ -11,13 +11,28 @@ public class Ranking : MonoBehaviour
 	int page;
 	void Start()
 	{
-		string os = TouchOperation.windows ? "Windows" : "Andloid";
+		string os = TouchOperation.windows ? "Windows" : "Android";
 		string diffName = ((DiffName)Select.diff).ToString();
 		path = "Ranking/" + os + "/" + diffName + "/";
 		page = 0;
 		FirebaseManager.RankingDataRead(path).ContinueWith(rankingDataRead =>
 		{
-			RankingDisplay(rankingDataRead.Result);
+			if (rankingDataRead.IsFaulted)
+			{
+				Debug.Log(rankingDataRead.Exception);
+			}
+			else {
+				try
+				{
+					RankingDisplay(rankingDataRead.Result);
+				}
+				catch (System.Exception e)
+				{
+
+					Debug.Log(e);
+				}
+				
+			}
 		});
 	}
 	public void Entry()
@@ -51,18 +66,18 @@ public class Ranking : MonoBehaviour
 	{
 		for (int rank = page * 5 + 1; rank <= page * 5 + 5; rank++)
 		{
-			if (rank < rankingDataList.Count)
+			if (rank <= rankingDataList.Count)
 			{
 				switch (rank)
 				{
 					case 1:
-						rankingText[rank - 1].text =  "1st:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+						rankingText[rank - 1].text =  "1st:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + rank - 1].kill + " TIME:" + rankingDataList[page * 5 + rank - 1].time + " s";
 						break;
 					case 2:
-						rankingText[rank - 1].text = "2nd:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+						rankingText[rank - 1].text = "2nd:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + rank - 1].kill + " TIME:" + rankingDataList[page * 5 + rank - 1].time + " s";
 						break;
 					case 3:
-						rankingText[rank - 1].text = "3rd:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+						rankingText[rank - 1].text = "3rd:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + rank - 1].kill + " TIME:" + rankingDataList[page * 5 + rank - 1].time + " s";
 						break;
 					default:
 						rankingText[rank - 1].text = rank + "th:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";

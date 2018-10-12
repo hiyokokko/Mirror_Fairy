@@ -35,7 +35,7 @@ public class FirebaseManager : MonoBehaviour
 						(string)current.Child("name").GetValue(true),
 						(string)current.Child("password").GetValue(true),
 						(long)current.Child("kill").GetValue(true),
-						(double)current.Child("time").GetValue(true)
+						double.Parse(current.Child("time").GetRawJsonValue())
 					);
 					rankingDataList.Add(rankingData);
 				}
@@ -58,7 +58,7 @@ public class FirebaseManager : MonoBehaviour
 				{
 					string hashPassword = GetHashedTextString(password);
 					DataSnapshot dataSnapshot = task.Result;
-					if (dataSnapshot.Value == null ||
+					if (TouchOperation.windows ? dataSnapshot.GetValue(true) == null : dataSnapshot == null ||
 						(string)dataSnapshot.Child("password").GetValue(true) == hashPassword)
 					{
 						RankingData rankingData = new RankingData
