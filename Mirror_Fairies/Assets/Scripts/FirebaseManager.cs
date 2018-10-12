@@ -11,7 +11,7 @@ public class FirebaseManager : MonoBehaviour
 	static DatabaseReference databaseReference;
 	void Start()
 	{
-		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://mirrorfairies.firebaseio.com/");
+		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://mirrorfairiestest.firebaseio.com/");
 		databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 	}
 	/// <summary>
@@ -52,30 +52,37 @@ public class FirebaseManager : MonoBehaviour
 	{
 		return databaseReference.Child(path + name).GetValueAsync().ContinueWith(task =>
 		{
-			if (task.IsCompleted)
+			try
 			{
-				string hashPassword = GetHashedTextString(password);
-				DataSnapshot dataSnapshot = task.Result;
-				if (dataSnapshot.GetValue(true) == null ||
-					(string)dataSnapshot.Child("password").GetValue(true) == hashPassword)
+				if (task.IsCompleted)
 				{
-					RankingData rankingData = new RankingData
-					(
-						name, 
-						hashPassword,
-						PlayerPrefs.GetInt(((DiffName)(Select.diff)).ToString() + "Kill"), 
-						Conversion.DoubleConversion(PlayerPrefs.GetFloat(((DiffName)(Select.diff)).ToString() + "Time"))
-					);
-					databaseReference.Child(path + name).SetRawJsonValueAsync(JsonUtility.ToJson(rankingData));
-					return true;
+					string hashPassword = GetHashedTextString(password);
+					DataSnapshot dataSnapshot = task.Result;
+					if (dataSnapshot.Value == null ||
+						(string)dataSnapshot.Child("password").GetValue(true) == hashPassword)
+					{
+						RankingData rankingData = new RankingData
+						(
+							name,
+							hashPassword,
+							PlayerPrefs.GetInt(((DiffName)(Select.diff)).ToString() + "Kill"),
+							Conversion.DoubleConversion(PlayerPrefs.GetFloat(((DiffName)(Select.diff)).ToString() + "Time"))
+						);
+						databaseReference.Child(path + name).SetRawJsonValueAsync(JsonUtility.ToJson(rankingData));
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 				}
 				else
 				{
 					return false;
 				}
-			}
-			else
+			}catch (System.Exception e)
 			{
+				Debug.Log(e.Message);
 				return false;
 			}
 		});
@@ -89,21 +96,28 @@ public class FirebaseManager : MonoBehaviour
 	{
 		return RankingDataRead(path).ContinueWith(rankingDataRead => 
 		{
-			List<RankingData> rankingDataList = rankingDataRead.Result;
-			for (int rank = 1; rank <= rankingDataList.Count; rank++)
+			try
 			{
-				if (rankingDataList[rank - 1].name == name)
+				List<RankingData> rankingDataList = rankingDataRead.Result;
+				for (int rank = 1; rank <= rankingDataList.Count; rank++)
 				{
-					switch (rank)
+					if (rankingDataList[rank - 1].name == name)
 					{
-						case 1: return "you rank" + "\n" + "1st of " + rankingDataList.Count.ToString();
-						case 2: return "you rank" + "\n" + "2nd of " + rankingDataList.Count.ToString();
-						case 3: return "you rank" + "\n" + "3rd of " + rankingDataList.Count.ToString();
-						default: return "you rank" + "\n" + rank.ToString() + "th of " + rankingDataList.Count.ToString();
+						switch (rank)
+						{
+							case 1: return "you rank" + "\n" + "1st of " + rankingDataList.Count.ToString();
+							case 2: return "you rank" + "\n" + "2nd of " + rankingDataList.Count.ToString();
+							case 3: return "you rank" + "\n" + "3rd of " + rankingDataList.Count.ToString();
+							default: return "you rank" + "\n" + rank.ToString() + "th of " + rankingDataList.Count.ToString();
+						}
 					}
 				}
+				return "Network Error";
+			}catch (System.Exception e)
+			{
+				Debug.Log(e.Message);
+				return "Error";
 			}
-			return "Network Error";
 		});
 	}
 	/// <summary>
