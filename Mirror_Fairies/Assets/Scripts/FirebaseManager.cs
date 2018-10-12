@@ -11,7 +11,7 @@ public class FirebaseManager : MonoBehaviour
 	static DatabaseReference databaseReference;
 	void Start()
 	{
-		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://mirrorfairiestest.firebaseio.com/");
+		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://mirrorfairies.firebaseio.com/");
 		databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 	}
 	/// <summary>

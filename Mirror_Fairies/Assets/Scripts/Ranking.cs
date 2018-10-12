@@ -49,15 +49,29 @@ public class Ranking : MonoBehaviour
 	}
 	void RankingDisplay(List<RankingData> rankingDataList)
 	{
-		for (int i = 0; i < 5; i++)
+		for (int rank = page * 5 + 1; rank <= page * 5 + 5; rank++)
 		{
-			if (page * 5 + i < rankingDataList.Count)
+			if (rank < rankingDataList.Count)
 			{
-				rankingText[i].text = i + "st:" + rankingDataList[page * 5 + i].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+				switch (rank)
+				{
+					case 1:
+						rankingText[rank - 1].text =  "1st:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+						break;
+					case 2:
+						rankingText[rank - 1].text = "2nd:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+						break;
+					case 3:
+						rankingText[rank - 1].text = "3rd:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+						break;
+					default:
+						rankingText[rank - 1].text = rank + "th:" + rankingDataList[page * 5 + rank - 1].name + "\n" + "KILL:" + rankingDataList[page * 5 + 1].kill + " TIME:" + rankingDataList[page * 5 + 1].time + " s";
+						break;
+				}
 			}
 			else
 			{
-				rankingText[i].text = "";
+				rankingText[rank - 1].text = "";
 			}
 		}
 	}
