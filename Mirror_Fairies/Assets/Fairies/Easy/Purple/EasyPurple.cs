@@ -43,6 +43,7 @@ public class EasyPurple : MonoBehaviour
 			if (health <= 0)
 			{
 				Main.kill++;
+				Main.killTime = Main.time;
 				Main.gameOver = true;
 				Destroy(gameObject);
 			}
