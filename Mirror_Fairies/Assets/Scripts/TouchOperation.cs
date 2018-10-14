@@ -64,9 +64,6 @@ public class TouchOperation
 		return cam.ScreenToWorldPoint(GetTouchPosition(touchNum));
 	}
 }
-/// <summary>
-/// タッチ情報。UnityEngine.TouchPhase に None の情報を追加拡張。
-/// </summary>
 public enum TouchInfo
 {
 	//タッチなし

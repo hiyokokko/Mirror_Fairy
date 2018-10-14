@@ -2,9 +2,9 @@
 using UnityEngine.UI;
 public class Select : MonoBehaviour
 {
-	public static int diff;
 	[SerializeField] Text recordKillText;
 	[SerializeField] Text recordTimeText;
+	public static int diff;
 	void Start()
 	{
 		diff = 0;
