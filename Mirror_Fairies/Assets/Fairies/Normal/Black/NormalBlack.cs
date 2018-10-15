@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public class EasyBlack : MonoBehaviour
+public class NormalBlack : MonoBehaviour
 {
 	[SerializeField] GameObject burret;
 	Camera cam;
@@ -11,6 +11,7 @@ public class EasyBlack : MonoBehaviour
 	int attack;
 	float attackWait;
 	float attackTime;
+	int burretNum;
 	float burretSpeed;
 	int move;
 	float moveRestRight;
@@ -24,6 +25,7 @@ public class EasyBlack : MonoBehaviour
 		attack = -1;
 		attackWait = 0.1f;
 		attackTime = attackWait;
+		burretNum = 3;
 		burretSpeed = 16.0f;
 		move = -1;
 		moveRestRight = 3.0f;
@@ -81,9 +83,17 @@ public class EasyBlack : MonoBehaviour
 	}
 	void Attack()
 	{
-		Vector2 burretPos = new Vector2(transform.position.x + 1, transform.position.y);
-		GameObject burretInst = Instantiate(burret, burretPos, Quaternion.identity);
-		burretInst.GetComponent<EasyBlackBurret>().speed = burretSpeed;
+		Vector2[] burretPos = new Vector2[3]
+		{
+			new Vector2(transform.position.x + 1, transform.position.y + 1),
+			new Vector2(transform.position.x + 1, transform.position.y),
+			new Vector2(transform.position.x + 1, transform.position.y - 1)
+		};
+		for (int i = 0; i < burretNum; i++)
+		{
+			GameObject burretInst = Instantiate(burret, burretPos[i], Quaternion.identity);
+			burretInst.GetComponent<NormalBlackBurret>().speed = burretSpeed;
+		}
 		attackTime -= attackWait;
 	}
 	void Move(Vector2 touchAfterPos)

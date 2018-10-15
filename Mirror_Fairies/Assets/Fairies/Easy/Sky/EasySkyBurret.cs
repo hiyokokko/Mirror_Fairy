@@ -3,8 +3,6 @@ public class EasySkyBurret : MonoBehaviour
 {
 	public Vector2 target;
 	public float speed;
-	public float moveWait;
-	float time;
 	void Start()
 	{
 		transform.LookAt(target);
@@ -12,8 +10,7 @@ public class EasySkyBurret : MonoBehaviour
 	}
 	void Update()
 	{
-		time += Time.deltaTime;
-		if (time >= moveWait) { transform.position += transform.right * Time.deltaTime * speed; }
+		transform.position += transform.right * Time.deltaTime * speed;
 		Mirror();
 		Destroy();
 	}

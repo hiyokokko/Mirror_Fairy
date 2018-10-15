@@ -13,9 +13,9 @@ public class EasySky : MonoBehaviour
 	float attackWait;
 	float attackTime;
 	int attackCount;
-	Vector2[] burretPos;
+	int burretNum;
+	Vector2[][] burretPos;
 	float burretSpeed;
-	float burretMoveWait;
 	void Start()
 	{
 		pos = transform.position;
@@ -26,15 +26,31 @@ public class EasySky : MonoBehaviour
 		attackWait = 1.0f;
 		attackTime = attackWait;
 		attackCount = 0;
-		burretPos = new Vector2[4]
+		burretNum = 2;
+		burretPos = new Vector2[4][]
 		{
-			new Vector2(pos.x - 1, pos.y),
-			new Vector2(pos.x - 1, pos.y + 2),
-			new Vector2(pos.x - 1, pos.y),
-			new Vector2(pos.x - 1, pos.y - 2)
+			new Vector2[2]
+			{
+				new Vector2(pos.x + 1, pos.y + 1),
+				new Vector2(pos.x + 1, pos.y - 1),
+			},
+			new Vector2[2]
+			{
+				new Vector2(pos.x + 1, pos.y + 3),
+				new Vector2(pos.x + 1, pos.y + 1),
+			},
+			new Vector2[2]
+			{
+				new Vector2(pos.x + 1, pos.y + 1),
+				new Vector2(pos.x + 1, pos.y - 1),
+			},
+			new Vector2[2]
+			{
+				new Vector2(pos.x + 1, pos.y - 1),
+				new Vector2(pos.x + 1, pos.y - 3),
+			}
 		};
 		burretSpeed = 16.0f;
-		burretMoveWait = 1.0f;
 	}
 	void Update()
 	{
@@ -71,10 +87,12 @@ public class EasySky : MonoBehaviour
 			Debug.Log("ERROR:" + e);
 			burretTarget = new Vector2(0.0f, 0.0f);
 		}
-		GameObject burretInst = Instantiate(burret, burretPos[attackCount % burretPos.Length], Quaternion.identity);
-		burretInst.GetComponent<EasySkyBurret>().target = burretTarget;
-		burretInst.GetComponent<EasySkyBurret>().speed = burretSpeed;
-		burretInst.GetComponent<EasySkyBurret>().moveWait = burretMoveWait;
+		for (int i = 0; i < burretNum; i++)
+		{
+			GameObject burretInst = Instantiate(burret, burretPos[attackCount % burretPos.Length][i], Quaternion.identity);
+			burretInst.GetComponent<EasySkyBurret>().target = burretTarget;
+			burretInst.GetComponent<EasySkyBurret>().speed = burretSpeed;
+		}
 		attackCount++;
 		attackTime -= attackWait;
 	}
