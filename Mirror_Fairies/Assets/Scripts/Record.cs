@@ -18,7 +18,7 @@ public class Record
 			recordTimeText.text = "RECORD TIME _ NO DATA";
 		}
 	}
-	public static bool RecordUpdate(RecordData recordData)
+	public static void RecordUpdate(RecordData recordData)
 	{
 		if (PlayerPrefs.HasKey(((DiffName)(Select.diff * 2)).ToString() + "Kill"))
 		{
@@ -28,18 +28,12 @@ public class Record
 				PlayerPrefs.SetFloat(((DiffName)(Select.diff * 2)).ToString() + "Time", recordData.time);
 				PlayerPrefs.Save();
 				Record.recordData = new RecordData(recordData.kill, recordData.time);
-				return true;
 			}
 			else if (Record.recordData.kill == recordData.kill && Record.recordData.time > recordData.time)
 			{
 				PlayerPrefs.SetFloat(((DiffName)(Select.diff * 2)).ToString() + "Time", recordData.time);
 				PlayerPrefs.Save();
 				Record.recordData = new RecordData(recordData.kill, recordData.time);
-				return true;
-			}
-			else
-			{
-				return false;
 			}
 		}
 		else if (recordData.kill >= 1)
@@ -48,12 +42,8 @@ public class Record
 			PlayerPrefs.SetFloat(((DiffName)(Select.diff * 2)).ToString() + "Time", recordData.time);
 			PlayerPrefs.Save();
 			Record.recordData = new RecordData(recordData.kill, recordData.time);
-			return true;
 		}
-		else
-		{
-			return false;
-		}
+		return;
 	}
 }
 public class RecordData

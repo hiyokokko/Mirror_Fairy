@@ -24,7 +24,7 @@ public class Ranking : MonoBehaviour
 			{
 				rankingDataList = rankingDataRead.Result;
 				rankingPage = 0;
-				rankingPageMax = rankingDataList.Count - 1 / 5;
+				rankingPageMax = (rankingDataList.Count - 1) / 5;
 				RankingDisplay(rankingDataList);
 			}
 			else
@@ -60,7 +60,7 @@ public class Ranking : MonoBehaviour
 							{
 								rankingDataList = rankingDataRead.Result;
 								rankingPage = 0;
-								rankingPageMax = rankingDataList.Count / 5;
+								rankingPageMax = (rankingDataList.Count - 1) / 5;
 								RankingDisplay(rankingDataList);
 								entryText.text = RankingResult(rankingDataList, name);
 							}

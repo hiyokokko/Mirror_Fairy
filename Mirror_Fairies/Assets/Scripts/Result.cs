@@ -6,10 +6,9 @@ public class Result : MonoBehaviour
 	[SerializeField] Text resultKillText;
 	[SerializeField] Text resultTimeText;
 	public static RecordData resultRecordData;
-	bool newRecord;
 	void Start ()
 	{
-		newRecord = Record.RecordUpdate(resultRecordData);
+		Record.RecordUpdate(resultRecordData);
 		ResultDisplay();
 	}
 	void ResultDisplay()
