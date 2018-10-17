@@ -41,7 +41,7 @@ public class Ranking : MonoBehaviour
 		{
 			entryText.text = "InputPlease";
 		} 
-		else if (!PlayerPrefs.HasKey(((DiffName)(Select.diff * 2)).ToString() + "Kill"))
+		else if (!PlayerPrefs.HasKey(((DiffName)(Select.diff)).ToString() + "Kill"))
 		{
 			entryText.text = "NoRecordData";
 		}
