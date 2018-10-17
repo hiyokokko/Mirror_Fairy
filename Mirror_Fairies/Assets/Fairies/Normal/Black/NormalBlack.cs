@@ -85,9 +85,9 @@ public class NormalBlack : MonoBehaviour
 	{
 		Vector2[] burretPos = new Vector2[3]
 		{
-			new Vector2(transform.position.x + 1, transform.position.y + 1),
+			new Vector2(transform.position.x + 1, transform.position.y + 0.5f),
 			new Vector2(transform.position.x + 1, transform.position.y),
-			new Vector2(transform.position.x + 1, transform.position.y - 1)
+			new Vector2(transform.position.x + 1, transform.position.y - 0.5f)
 		};
 		for (int i = 0; i < burretNum; i++)
 		{

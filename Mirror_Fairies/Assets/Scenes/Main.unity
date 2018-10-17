@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -18, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFairies:
   - {fileID: 1072832336452142, guid: 8075908e38e4b3841897fc626221fed5, type: 2}
-  - {fileID: 0}
+  - {fileID: 1188318144122010, guid: 7b34cc4cc0581dc4084e0cca6e25fc10, type: 2}
   enemyFairies:
   - {fileID: 1153937365843922, guid: add22355f98d62349bdf7588301f0ab7, type: 2}
   - {fileID: 1394024513210608, guid: 29168c0ac25613946bbf35dc475001d8, type: 2}
@@ -407,12 +407,12 @@ MonoBehaviour:
   - {fileID: 1984358323352306, guid: 6474f2bcf8ecad544a0e96c37321b3ed, type: 2}
   - {fileID: 1803398996890268, guid: 8e19298c1a5ff104aaa26897b21f4568, type: 2}
   - {fileID: 1394239224282906, guid: 6347ea01d95fb3c40aad80deea916047, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1504181243801302, guid: 31a503937a0607f4e82d176695c0e6c0, type: 2}
+  - {fileID: 1874539232313946, guid: e87463990be31824e9f7261fcc0d0198, type: 2}
+  - {fileID: 1798967769806794, guid: 10c6a21610692754d9c7476b0837c3b3, type: 2}
+  - {fileID: 1968237351079548, guid: f3580336bfd3fd949a6260eb6b3d89c3, type: 2}
+  - {fileID: 1410347449539132, guid: 6ecda4c7574229e48be7907499287a8e, type: 2}
+  - {fileID: 1906474139676048, guid: 8fe47b1635d4fc2428c4997a81e00263, type: 2}
 --- !u!4 &1849783560
 Transform:
   m_ObjectHideFlags: 0

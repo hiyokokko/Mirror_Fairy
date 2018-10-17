@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-public class NormalBlue : MonoBehaviour
+public class NormalYellow : MonoBehaviour
 {
 	[SerializeField] GameObject burret;
 	[SerializeField] Text healthText;
@@ -12,38 +12,30 @@ public class NormalBlue : MonoBehaviour
 	float attackWait;
 	float attackTime;
 	int attackCount;
-	int burretNum;
 	Vector2[] burretPos;
-	float[] burretRot;
 	float burretSpeed;
 	void Start()
 	{
 		pos = transform.position;
 		health = 200;
 		time = 0.0f;
-		speed = 2.0f;
-		move = 2.0f;
-		attackWait = 0.25f;
+		speed = 1.0f;
+		move = 4.0f;
+		attackWait = 0.5f;
 		attackTime = attackWait;
 		attackCount = 0;
-		burretNum = 2;
 		burretPos = new Vector2[8]
 		{
-			new Vector2(pos.x - 1.0f, pos.y),
-			new Vector2(pos.x - 1.0f, pos.y + 1.0f),
-			new Vector2(pos.x - 1.0f, pos.y + 2.0f),
-			new Vector2(pos.x - 1.0f, pos.y + 1.0f),
-			new Vector2(pos.x - 1.0f, pos.y),
-			new Vector2(pos.x - 1.0f, pos.y - 1.0f),
-			new Vector2(pos.x - 1.0f, pos.y - 2.0f),
-			new Vector2(pos.x - 1.0f, pos.y - 1.0f)
+			new Vector2(pos.x, pos.y),
+			new Vector2(pos.x, pos.y + 2),
+			new Vector2(pos.x, pos.y + 4),
+			new Vector2(pos.x, pos.y + 2),
+			new Vector2(pos.x, pos.y),
+			new Vector2(pos.x, pos.y - 2),
+			new Vector2(pos.x, pos.y - 4),
+			new Vector2(pos.x, pos.y - 2)
 		};
-		burretRot = new float[2]
-		{
-			165.0f,
-			-165.0f
-		};
-		burretSpeed = 8.0f;
+		burretSpeed = 16.0f;
 	}
 	void Update()
 	{
@@ -60,7 +52,7 @@ public class NormalBlue : MonoBehaviour
 			Destroy(col.gameObject);
 			if (health <= 0)
 			{
-				Main.kill = 1;
+				Main.kill = 4;
 				Main.killTime = Main.time;
 				Main.enemySpawn = true;
 				Destroy(gameObject);
@@ -70,11 +62,8 @@ public class NormalBlue : MonoBehaviour
 	}
 	void Attack()
 	{
-		for (int i = 0; i < burretNum; i++)
-		{
-			GameObject burretInst = Instantiate(burret, burretPos[attackCount % burretPos.Length], Quaternion.Euler(0.0f, 0.0f, burretRot[i]));
-			burretInst.GetComponent<NormalBlueBurret>().speed = burretSpeed;
-		}
+		GameObject burretInst = Instantiate(burret, burretPos[attackCount % burretPos.Length], Quaternion.Euler(0.0f, 0.0f, -180.0f));
+		burretInst.GetComponent<NormalYellowBurret>().speed = burretSpeed;
 		attackCount++;
 		attackTime -= attackWait;
 	}
