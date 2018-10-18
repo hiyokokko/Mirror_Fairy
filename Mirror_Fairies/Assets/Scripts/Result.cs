@@ -27,6 +27,7 @@ public class Result : MonoBehaviour
 	}
 	public void SelectScene(int selectScene)
 	{
+		AudioSE.button = true;
 		SceneChanger.sceneChange = selectScene;
 	}
 }

@@ -35,6 +35,7 @@ public class Select : MonoBehaviour
 	{
 		if (!scaleChange)
 		{
+			AudioSE.button = true;
 			beforeDiff = diff;
 			diff = selectDiff;
 			if (beforeDiff != diff) { scaleChange = true; }
@@ -56,6 +57,7 @@ public class Select : MonoBehaviour
 	}
 	public void SelectScene(int selectScene)
 	{
+		AudioSE.button = true;
 		SceneChanger.sceneChange = selectScene;
 	}
 }

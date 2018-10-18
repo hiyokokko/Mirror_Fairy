@@ -35,6 +35,7 @@ public class Ranking : MonoBehaviour
 	}
 	public void Entry()
 	{
+		AudioSE.button = true;
 		string name = nameInput.text;
 		string pass = passInput.text;
 		if (name == "" || pass == "")
@@ -133,6 +134,7 @@ public class Ranking : MonoBehaviour
 	}
 	public void RankingPageUp()
 	{
+		AudioSE.button = true;
 		if (rankingPage > 0)
 		{
 			rankingPage--;
@@ -141,6 +143,7 @@ public class Ranking : MonoBehaviour
 	}
 	public void RankingPageDown()
 	{
+		AudioSE.button = true;
 		if (rankingPage < rankingPageMax)
 		{
 			rankingPage++;
@@ -149,6 +152,7 @@ public class Ranking : MonoBehaviour
 	}
 	public void SelectScene(int selectScene)
 	{
+		AudioSE.button = true;
 		SceneChanger.sceneChange = selectScene;
 	}
 }

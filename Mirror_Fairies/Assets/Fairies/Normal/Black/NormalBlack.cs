@@ -38,11 +38,13 @@ public class NormalBlack : MonoBehaviour
 	}
 	void OnCollisionEnter2D(Collision2D col)
 	{
+		AudioSE.kill = true;
 		Main.gameOver = true;
 		Destroy(gameObject);
 	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
+		AudioSE.kill = true;
 		Main.gameOver = true;
 		Destroy(gameObject);
 	}

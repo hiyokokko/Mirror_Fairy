@@ -32,17 +32,19 @@ public class EasyYellow : MonoBehaviour
 	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		if (col.gameObject.transform.tag == "Player")
+		if (col.gameObject.transform.tag == "Player" && GameObject.Find("EasyBlack(Clone)") != null)
 		{
 			health--;
 			Destroy(col.gameObject);
 			if (health <= 0)
 			{
-				Main.kill++;
+				AudioSE.kill = true;
+				Main.kill = 4;
 				Main.killTime = Main.time;
 				Main.enemySpawn = true;
 				Destroy(gameObject);
 			}
+			AudioSE.damage = true;
 			healthText.text = health.ToString();
 		}
 	}
