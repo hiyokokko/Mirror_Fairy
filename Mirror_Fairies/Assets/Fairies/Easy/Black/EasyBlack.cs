@@ -46,7 +46,7 @@ public class EasyBlack : MonoBehaviour
 	}
 	void Touch()
 	{
-		for (int touchNum = 0; touchNum < touchMax; touchNum++)
+		for (int touchNum = 0; TouchOperation.windows ? touchNum < touchMax : touchNum < Input.touchCount && touchNum < touchMax; touchNum++)
 		{
 			if (TouchOperation.GetTouch(touchNum) == TouchInfo.Start)
 			{
