@@ -45,6 +45,10 @@ public class Main : MonoBehaviour
 		enemySpawnTime += Time.deltaTime;
 		if (enemySpawnTime >= enemySpawnWait)
 		{
+			foreach (GameObject burret in GameObject.FindGameObjectsWithTag("Burret"))
+			{
+				Destroy(burret);
+			}
 			Instantiate(enemyFairies[enemyArrayPoint + kill], enemyPos, Quaternion.identity);
 			enemySpawnTime = 0.0f;
 			enemySpawn = false;

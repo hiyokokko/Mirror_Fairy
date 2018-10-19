@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114730347554130252}
   m_Layer: 0
   m_Name: EasyRedBurret
-  m_TagString: Untagged
+  m_TagString: Burret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

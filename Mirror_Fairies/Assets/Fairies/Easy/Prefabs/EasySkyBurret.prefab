@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114040744508479344}
   m_Layer: 0
   m_Name: EasySkyBurret
-  m_TagString: Untagged
+  m_TagString: Burret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +70,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0}
   speed: 0
-  moveWait: 0
 --- !u!212 &212826612169576068
 SpriteRenderer:
   m_ObjectHideFlags: 1

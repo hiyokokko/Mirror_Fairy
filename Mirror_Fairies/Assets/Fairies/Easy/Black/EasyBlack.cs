@@ -3,7 +3,6 @@ public class EasyBlack : MonoBehaviour
 {
 	[SerializeField] GameObject burret;
 	Camera cam;
-	int touchMax;
 	float touchBouder;
 	Vector2 beforePos;
 	Vector2 touchBeforePos;
@@ -17,7 +16,6 @@ public class EasyBlack : MonoBehaviour
 	void Start()
 	{
 		cam = GameObject.Find("Camera").GetComponent<Camera>();
-		touchMax = TouchOperation.windows ? 1 : 2;
 		touchBouder = 12.0f;
 		attack = -1;
 		attackWait = 0.1f;
