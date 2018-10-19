@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 public class EasySky : MonoBehaviour
 {
@@ -84,9 +83,9 @@ public class EasySky : MonoBehaviour
 		{
 			burretTarget = GameObject.Find("EasyBlack(Clone)").transform.position;
 		}
-		catch (NullReferenceException e)
+		catch (System.Exception e)
 		{
-			Debug.Log("ERROR:" + e);
+			Debug.Log(e.Message);
 			burretTarget = new Vector2(0.0f, 0.0f);
 		}
 		for (int i = 0; i < burretNum; i++)

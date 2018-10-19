@@ -27,13 +27,13 @@ public class Record
 				PlayerPrefs.SetInt(((DiffName)(Select.diff)).ToString() + "Kill", recordData.kill);
 				PlayerPrefs.SetFloat(((DiffName)(Select.diff)).ToString() + "Time", recordData.time);
 				PlayerPrefs.Save();
-				Record.recordData = new RecordData(recordData.kill, recordData.time);
+				recordData = new RecordData(recordData.kill, recordData.time);
 			}
 			else if (Record.recordData.kill == recordData.kill && Record.recordData.time > recordData.time)
 			{
 				PlayerPrefs.SetFloat(((DiffName)(Select.diff)).ToString() + "Time", recordData.time);
 				PlayerPrefs.Save();
-				Record.recordData = new RecordData(recordData.kill, recordData.time);
+				recordData = new RecordData(recordData.kill, recordData.time);
 			}
 		}
 		else if (recordData.kill >= 1)
@@ -41,7 +41,7 @@ public class Record
 			PlayerPrefs.SetInt(((DiffName)(Select.diff)).ToString() + "Kill", recordData.kill);
 			PlayerPrefs.SetFloat(((DiffName)(Select.diff)).ToString() + "Time", recordData.time);
 			PlayerPrefs.Save();
-			Record.recordData = new RecordData(recordData.kill, recordData.time);
+			recordData = new RecordData(recordData.kill, recordData.time);
 		}
 		return;
 	}

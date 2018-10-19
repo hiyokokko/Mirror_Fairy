@@ -52,15 +52,24 @@ public class EasyBlack : MonoBehaviour
 		{
 			if (TouchOperation.GetTouch(touchNum) == TouchInfo.Start)
 			{
-				if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x >= touchBouder && attack == -1)
-				{
-					attack = touchNum;
-				}
-				if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x < touchBouder && move == -1)
+				if (TouchOperation.windows)
 				{
 					beforePos = transform.position;
 					touchBeforePos = TouchOperation.GetTouchWorldPosition(cam, touchNum);
 					move = touchNum;
+				}
+				else
+				{
+					if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x >= touchBouder && attack == -1)
+					{
+						attack = touchNum;
+					}
+					if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x < touchBouder && move == -1)
+					{
+						beforePos = transform.position;
+						touchBeforePos = TouchOperation.GetTouchWorldPosition(cam, touchNum);
+						move = touchNum;
+					}
 				}
 			}
 		}

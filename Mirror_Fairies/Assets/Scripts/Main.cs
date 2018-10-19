@@ -16,7 +16,7 @@ public class Main : MonoBehaviour
 	public static bool gameOver;
 	void Start ()
 	{
-		GameObject.Find("BGM").GetComponent<AudioSource>().Play();
+		AudioBGM.startBGM = true;
 		playerPos = new Vector2(-13.0f, 0.0f);
 		enemyPos = new Vector2(13.0f, 0.0f);
 		kill = -0;
@@ -52,7 +52,7 @@ public class Main : MonoBehaviour
 	}
 	void GameOver()
 	{
-		GameObject.Find("BGM").GetComponent<AudioSource>().Stop();
+		AudioBGM.stopBGM = true;
 		Result.resultRecordData = new RecordData(kill, float.Parse(killTime.ToString("F2")));
 		SceneChanger.sceneChange = 3;
 		gameOver = false;
