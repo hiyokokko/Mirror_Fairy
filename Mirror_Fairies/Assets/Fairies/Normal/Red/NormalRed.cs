@@ -57,9 +57,9 @@ public class NormalRed : MonoBehaviour
 		{
 			burretTarget = GameObject.Find("NormalBlack(Clone)").transform.position;
 		}
-		catch (System.NullReferenceException e)
+		catch (System.Exception e)
 		{
-			Debug.Log("ERROR:" + e);
+			Debug.Log(e.Message);
 			burretTarget = new Vector2(0.0f, 0.0f);
 		}
 		GameObject burretInst = Instantiate(burret, burretPos, Quaternion.identity);

@@ -100,9 +100,9 @@ public class NormalGreen : MonoBehaviour
 				burretTarget[i].y += i - 2.0f;
 			}
 		}
-		catch (System.NullReferenceException e)
+		catch (System.Exception e)
 		{
-			Debug.Log("ERROR:" + e);
+			Debug.Log(e.Message);
 			for (int i = 0; i < burretNum; i++)
 			{
 				burretTarget[i] = new Vector2(0.0f, 0.0f);
