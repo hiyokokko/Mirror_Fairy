@@ -3,7 +3,6 @@ public class NormalBlack : MonoBehaviour
 {
 	[SerializeField] GameObject burret;
 	Camera cam;
-	int windows;
 	int touchMax;
 	float touchBouder;
 	Vector2 beforePos;
@@ -19,8 +18,7 @@ public class NormalBlack : MonoBehaviour
 	void Start()
 	{
 		cam = GameObject.Find("Camera").GetComponent<Camera>();
-		windows = TouchOperation.windows ? 1 : 0;
-		touchMax = 2;
+		touchMax = TouchOperation.windows ? 1 : 2; ;
 		touchBouder = 12.0f;
 		attack = -1;
 		attackWait = 0.1f;
@@ -50,7 +48,7 @@ public class NormalBlack : MonoBehaviour
 	}
 	void Touch()
 	{
-		for (int touchNum = 0; touchNum < Input.touchCount && touchNum < touchMax || touchNum < windows; touchNum++)
+		for (int touchNum = 0; touchNum < touchMax; touchNum++)
 		{
 			if (TouchOperation.GetTouch(touchNum) == TouchInfo.Start)
 			{
