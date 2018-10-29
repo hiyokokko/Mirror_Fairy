@@ -2,33 +2,28 @@
 public class EasyBlack : MonoBehaviour
 {
 	[SerializeField] GameObject burret;
-	Camera cam;
-	float touchBouder;
-	Vector2 beforePos;
-	Vector2 touchBeforePos;
-	int attack;
+	PlayerTouchState playerTouchState;
 	float attackWait;
 	float attackTime;
 	float burretSpeed;
-	int move;
 	float moveRestRight;
 	float moveRestOther;
 	void Start()
 	{
-		cam = GameObject.Find("Camera").GetComponent<Camera>();
-		touchBouder = 12.0f;
-		attack = -1;
+		PlayerOperation.cam = GameObject.Find("Camera").GetComponent<Camera>();
+		playerTouchState = new PlayerTouchState(-1, -1);
 		attackWait = 0.1f;
 		attackTime = attackWait;
 		burretSpeed = 16.0f;
-		move = -1;
 		moveRestRight = 3.0f;
 		moveRestOther = 1.0f;
 	}
 	void Update()
 	{
-		Touch();
+		playerTouchState = PlayerOperation.PlayerTouch(playerTouchState, transform.position);
 		if (attackTime < attackWait) { attackTime += Time.deltaTime; }
+		if (playerTouchState.attack != -1 && attackTime >= attackWait) { Attack(); }
+		if (playerTouchState.move != -1) { Move(); }
 	}
 	void OnCollisionEnter2D(Collision2D col)
 	{
@@ -42,64 +37,6 @@ public class EasyBlack : MonoBehaviour
 		Main.gameOver = true;
 		Destroy(gameObject);
 	}
-	void Touch()
-	{
-		int touchMax = TouchOperation.windows ? 1 : Input.touchCount <= 2 ? Input.touchCount : 2;
-		for (int touchNum = 0; touchNum < touchMax; touchNum++)
-		{
-			if (TouchOperation.windows)
-			{
-				if (Input.GetKey(KeyCode.Space) && attackTime >= attackWait) { Attack(); }
-				if (TouchOperation.GetTouch(touchNum) == TouchInfo.Start)
-				{
-					beforePos = transform.position;
-					touchBeforePos = TouchOperation.GetTouchWorldPosition(cam, touchNum);
-					move = touchNum;
-				}
-				if (move != -1)
-				{
-					Move(TouchOperation.GetTouchWorldPosition(cam, move));
-					if (TouchOperation.GetTouch(move) == TouchInfo.End)
-					{
-						move = -1;
-					}
-				}
-			}
-			else
-			{
-				int fingerId = Input.GetTouch(touchNum).fingerId;
-				if (TouchOperation.GetTouch(touchNum) == TouchInfo.Start)
-				{
-					if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x >= touchBouder && attack == -1)
-					{
-						attack = fingerId;
-					}
-					if (TouchOperation.GetTouchWorldPosition(cam, touchNum).x < touchBouder && move == -1)
-					{
-						beforePos = transform.position;
-						touchBeforePos = TouchOperation.GetTouchWorldPosition(cam, touchNum);
-						move = fingerId;
-					}
-				}
-				if (attack == fingerId)
-				{
-					if (attackTime >= attackWait) { Attack(); }
-					if (TouchOperation.GetTouch(touchNum) == TouchInfo.End)
-					{
-						attack = -1;
-					}
-				}
-				if (move == fingerId)
-				{
-					Move(TouchOperation.GetTouchWorldPosition(cam, touchNum));
-					if (TouchOperation.GetTouch(touchNum) == TouchInfo.End)
-					{
-						move = -1;
-					}
-				}
-			}
-		}
-	}
 	void Attack()
 	{
 		Vector2 burretPos = new Vector2(transform.position.x + 1, transform.position.y);
@@ -107,9 +44,9 @@ public class EasyBlack : MonoBehaviour
 		burretInst.GetComponent<EasyBlackBurret>().speed = burretSpeed;
 		attackTime -= attackWait;
 	}
-	void Move(Vector2 touchAfterPos)
+	void Move()
 	{
-		Vector2 afterPos = beforePos + (touchAfterPos - touchBeforePos);
+		Vector2 afterPos = playerTouchState.beforePos + (playerTouchState.afterTouchPos - playerTouchState.beforeTouchPos);
 		transform.position = afterPos;
 		if (EndChecker.EndRight(transform.position.x + moveRestRight))
 		{
