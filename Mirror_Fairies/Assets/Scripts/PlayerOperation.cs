@@ -3,7 +3,7 @@ public class PlayerOperation
 {
 	public static Camera cam;
 	static float touchBouder = 12.0f;
-	public static PlayerTouchState PlayerTouch(PlayerTouchState playerTouchState, Vector2 pos)
+	public static void PlayerTouch(ref PlayerTouchState playerTouchState, Vector2 pos)
 	{
 		int touchMax = TouchOperation.windows ? 1 : Input.touchCount <= 2 ? Input.touchCount : 2;
 		for (int touchNum = 0; touchNum < touchMax; touchNum++)
@@ -56,19 +56,13 @@ public class PlayerOperation
 				}
 			}
 		}
-		return playerTouchState;
 	}
 }
 public class PlayerTouchState
 {
-	public int attack;
-	public int move;
+	public int attack = -1;
+	public int move = -1;
 	public Vector2 beforePos;
 	public Vector2 beforeTouchPos;
 	public Vector2 afterTouchPos;
-	public PlayerTouchState(int attack, int move)
-	{
-		this.attack = attack;
-		this.move = move;
-	}
 }

@@ -12,7 +12,7 @@ public class NormalBlack : MonoBehaviour
 	void Start()
 	{
 		PlayerOperation.cam = GameObject.Find("Camera").GetComponent<Camera>();
-		playerTouchState = new PlayerTouchState(-1, -1);
+		playerTouchState = new PlayerTouchState();
 		attackWait = 0.1f;
 		attackTime = attackWait;
 		burretNum = 3;
@@ -22,7 +22,7 @@ public class NormalBlack : MonoBehaviour
 	}
 	void Update()
 	{
-		playerTouchState = PlayerOperation.PlayerTouch(playerTouchState, transform.position);
+		PlayerOperation.PlayerTouch(ref playerTouchState, transform.position);
 		if (attackTime < attackWait) { attackTime += Time.deltaTime; }
 		if (playerTouchState.attack != -1 && attackTime >= attackWait) { Attack(); }
 		if (playerTouchState.move != -1) { Move(); }

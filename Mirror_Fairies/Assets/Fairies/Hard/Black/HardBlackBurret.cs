@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 public class HardBlackBurret : MonoBehaviour
 {
-	public Vector2 target;
 	public float speed;
 	bool mirrorX;
 	bool mirrorY;
 	void Start()
 	{
-		transform.LookAt(target);
-		transform.rotation = Quaternion.Euler(0.0f, 0.0f, -transform.localEulerAngles.x);
 		mirrorX = false;
 		mirrorY = false;
 	}
 	void Update()
 	{
-		transform.position += transform.right * Time.deltaTime * speed;
+		transform.position += transform.right * speed / 60;
 		Mirror();
 		Destroy();
 	}
@@ -29,7 +26,7 @@ public class HardBlackBurret : MonoBehaviour
 		{
 			mirrorX = false;
 		}
-		if (!mirrorY && EndChecker.EndTop(transform.position.y) || EndChecker.EndBottom(transform.position.y))
+		if (!mirrorY && (EndChecker.EndTop(transform.position.y) || EndChecker.EndBottom(transform.position.y)))
 		{
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, -transform.localEulerAngles.z);
 			mirrorY = true;

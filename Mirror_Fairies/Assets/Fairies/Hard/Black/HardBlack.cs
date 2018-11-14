@@ -6,25 +6,32 @@ public class HardBlack : MonoBehaviour
 	float attackWait;
 	float attackTime;
 	int burretNum;
-	float burretTargetX;
+	float[] burretRot;
 	float burretSpeed;
 	float moveRestRight;
 	float moveRestOther;
 	void Start()
 	{
 		PlayerOperation.cam = GameObject.Find("Camera").GetComponent<Camera>();
-		playerTouchState = new PlayerTouchState(-1, -1);
+		playerTouchState = new PlayerTouchState();
 		attackWait = 0.1f;
 		attackTime = attackWait;
 		burretNum = 5;
-		burretTargetX = 13.0f;
+		burretRot = new float[5]
+		{
+			2.0f,
+			1.0f,
+			0.0f,
+			-1.0f,
+			-2.0f
+		};
 		burretSpeed = 16.0f;
 		moveRestRight = 3.0f;
 		moveRestOther = 1.0f;
 	}
 	void Update()
 	{
-		playerTouchState = PlayerOperation.PlayerTouch(playerTouchState, transform.position);
+		PlayerOperation.PlayerTouch(ref playerTouchState, transform.position);
 		if (attackTime < attackWait) { attackTime += Time.deltaTime; }
 		if (playerTouchState.attack != -1 && attackTime >= attackWait) { Attack(); }
 		if (playerTouchState.move != -1) { Move(); }
@@ -43,19 +50,10 @@ public class HardBlack : MonoBehaviour
 	}
 	void Attack()
 	{
-		Vector2 burretTarget = new Vector2(burretTargetX, transform.position.y);
-		Vector2[] burretPos = new Vector2[5]
-		{
-			new Vector2(transform.position.x + 1, transform.position.y + 1.0f),
-			new Vector2(transform.position.x + 1, transform.position.y + 0.5f),
-			new Vector2(transform.position.x + 1, transform.position.y),
-			new Vector2(transform.position.x + 1, transform.position.y - 0.5f),
-			new Vector2(transform.position.x + 1, transform.position.y - 1.0f)
-		};
+		Vector2 burretPos = new Vector2(transform.position.x + 1, transform.position.y);
 		for (int i = 0; i < burretNum; i++)
 		{
-			GameObject burretInst = Instantiate(burret, burretPos[i], Quaternion.identity);
-			burretInst.GetComponent<HardBlackBurret>().target = burretTarget;
+			GameObject burretInst = Instantiate(burret, burretPos, Quaternion.Euler(0.0f, 0.0f, burretRot[i]));
 			burretInst.GetComponent<HardBlackBurret>().speed = burretSpeed;
 		}
 		attackTime -= attackWait;

@@ -38,7 +38,7 @@ public class Main : MonoBehaviour
 	}
 	void PlayerSpawn()
 	{
-		Instantiate(playerFairies[Select.diff], playerPos, Quaternion.identity);
+		Instantiate(playerFairies[Select.diff], playerPos, Quaternion.Euler(0.0f, -180.0f, 0.0f));
 	}
 	void EnemySpawn()
 	{
