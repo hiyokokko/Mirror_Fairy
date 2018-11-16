@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 212912127819818430}
   - component: {fileID: 95367663483677654}
   - component: {fileID: 58524808685349462}
-  - component: {fileID: 114764463589792738}
   - component: {fileID: 50243905598435450}
+  - component: {fileID: 114764463589792738}
   m_Layer: 0
   m_Name: HardPlayer
   m_TagString: Player
