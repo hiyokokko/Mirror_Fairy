@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4216696277404160}
   - component: {fileID: 212555797638558688}
   - component: {fileID: 58171006602831612}
-  - component: {fileID: 114365050524413074}
+  - component: {fileID: 114272031406754354}
   m_Layer: 0
   m_Name: HardRedBurret
   m_TagString: Burret
@@ -82,13 +82,13 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.275
---- !u!114 &114365050524413074
+--- !u!114 &114272031406754354
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,10 +96,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1412497474823282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 205857e68b46bac42bb300e7fd065811, type: 3}
+  m_Script: {fileID: 11500000, guid: b44520c5fef9eeb4ea7961f83a4e02b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  aim: 0
+  mirror: 0
+  moveSpeed: 8
+  moveWait: 0
+  moveBarst: 0
+  destroyWait: 4
+  target: {x: 0, y: 0}
 --- !u!198 &198999518811789146
 ParticleSystem:
   m_ObjectHideFlags: 1

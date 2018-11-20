@@ -1,21 +1,27 @@
 ﻿using UnityEngine;
 public class BurretController : MonoBehaviour
 {
-	[SerializeField] bool aim;
-	[SerializeField] bool mirror;
 	[SerializeField] float moveSpeed;
 	[SerializeField] float moveWait;
 	[SerializeField] bool moveBarst;
+	[SerializeField] bool mirror;
+	[SerializeField] float mirrorSpeedChange;
 	[SerializeField] float destroyWait;
-	public Vector2 target;
-	bool mirrorPossX;
-	bool mirrorPossY;
-	float moveTime;
+	[SerializeField] bool aim;
+	[SerializeField] bool action;
+	[SerializeField] GameObject actionBurret;
+	[SerializeField] bool actionTargetPos;
+	[SerializeField] float actionTime;
+	[SerializeField] Vector3[] actionInfo;
+	public Vector2 targetPos;
+	float moveTime = 0.0f;
+	bool mirrorNowX = false;
+	bool mirrorNowY = false;
 	void Start ()
 	{
 		if (aim)
 		{
-			transform.LookAt(target);
+			transform.LookAt(targetPos);
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180 + transform.localEulerAngles.x);
 		}
 	}
@@ -37,6 +43,21 @@ public class BurretController : MonoBehaviour
 				moveTime -= moveWait;
 			}
 		}
+		if ((actionTargetPos && transform.position.x <= targetPos.x) || !actionTargetPos)
+		{
+			foreach (Vector3 info in actionInfo)
+			{
+				Vector2 burretPos =
+					new Vector2
+					(
+						transform.position.x + info.x,
+						transform.position.y + info.y
+					);
+				Vector3 burretRot = new Vector3(0.0f, 0.0f, info.z);
+				Instantiate(actionBurret, burretPos, Quaternion.Euler(burretRot));
+			}
+			Destroy(gameObject);
+		}
 		if (mirror)
 		{
 			Mirror();
@@ -45,29 +66,37 @@ public class BurretController : MonoBehaviour
 	}
 	void Mirror()
 	{
-		if (!mirrorPossX &&
+		if (!mirrorNowX &&
 			EndChecker.EndRight(transform.position.x))
 		{
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f - transform.localEulerAngles.z);
-			mirrorPossX = true;
+			if (mirrorSpeedChange != 0)
+			{
+				moveSpeed *= mirrorSpeedChange;
+			}
+			mirrorNowX = true;
 		}
-		else if (mirrorPossX &&
+		else if (mirrorNowX &&
 			!EndChecker.EndRight(transform.position.x))
 		{
-			mirrorPossX = false;
+			mirrorNowX = false;
 		}
-		if (!mirrorPossY &&
+		if (!mirrorNowY &&
 			(EndChecker.EndTop(transform.position.y) ||
 			EndChecker.EndBottom(transform.position.y)))
 		{
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, -transform.localEulerAngles.z);
-			mirrorPossY = true;
+			if (mirrorSpeedChange != 0)
+			{
+				moveSpeed *= mirrorSpeedChange;
+			}
+			mirrorNowY = true;
 		}
-		else if (mirrorPossY &&
+		else if (mirrorNowY &&
 			!EndChecker.EndTop(transform.position.y) &&
 			!EndChecker.EndBottom(transform.position.y))
 		{
-			mirrorPossY = false;
+			mirrorNowY = false;
 		}
 	}
 	void Destroy()

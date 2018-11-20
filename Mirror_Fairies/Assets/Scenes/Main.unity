@@ -113,48 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &64203373
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &283399188
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +612,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10.5
+      scalar: 11
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5361,7 +5319,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10.5
+      scalar: 11
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10023,3 +9981,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2050283429
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815142386718002, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4a8f1ed08a78800448ca89313d4c5951, type: 2}
+  m_IsPrefabAsset: 0

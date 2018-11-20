@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4077498840863380}
   - component: {fileID: 212050232541009118}
   - component: {fileID: 58390491243827068}
-  - component: {fileID: 114715282108031334}
+  - component: {fileID: 114397618479277260}
   m_Layer: 0
   m_Name: HardYellowBurret1
   m_TagString: Burret
@@ -88,7 +88,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.275
---- !u!114 &114715282108031334
+--- !u!114 &114397618479277260
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,13 +96,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1616725400819064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 915279f9f331f68478b9bbeb0ed0ed8f, type: 3}
+  m_Script: {fileID: 11500000, guid: b44520c5fef9eeb4ea7961f83a4e02b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  burret: {fileID: 1409532793848488, guid: aa72e8fa78ac7c143bc3c317552d2f68, type: 2}
-  target: {x: 0, y: 0}
-  speed: 0
-  attackPattern: 0
+  moveSpeed: 16
+  moveWait: 0
+  moveBarst: 0
+  mirror: 1
+  mirrorSpeedChange: 0
+  destroyWait: 0
+  aim: 0
+  action: 1
+  actionBurret: {fileID: 1409532793848488, guid: aa72e8fa78ac7c143bc3c317552d2f68,
+    type: 2}
+  actionTargetPos: 1
+  actionTime: 0
+  actionInfo:
+  - {x: 0, y: 0, z: -22.5}
+  - {x: 0, y: 0, z: -67.5}
+  - {x: 0, y: 0, z: -112.5}
+  - {x: 0, y: 0, z: -157.5}
+  targetPos: {x: 0, y: 0}
 --- !u!198 &198314113785756046
 ParticleSystem:
   m_ObjectHideFlags: 1

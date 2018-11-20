@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4989024325849054}
   - component: {fileID: 212929452617339908}
   - component: {fileID: 60131109015772462}
-  - component: {fileID: 114112802999477536}
+  - component: {fileID: 114433759153429046}
   m_Layer: 0
   m_Name: HardGreenBurret
   m_TagString: Burret
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441312840032378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.78431374, y: 0.78431374, z: 1}
   m_Children:
   - {fileID: 4373978459468090}
@@ -90,7 +90,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2.55, y: 2.55}
-    newSize: {x: 2, y: 2}
+    newSize: {x: 2.55, y: 2.55}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -105,7 +105,7 @@ PolygonCollider2D:
       - {x: 0.92499995, y: 0.92499995}
       - {x: 0.92499995, y: -0.92499995}
       - {x: -0.92499995, y: -0.92499995}
---- !u!114 &114112802999477536
+--- !u!114 &114433759153429046
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,11 +113,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1441312840032378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80ed4c644e6dad47b4fb7e11904551c, type: 3}
+  m_Script: {fileID: 11500000, guid: b44520c5fef9eeb4ea7961f83a4e02b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  moveWait: 0
+  aim: 0
+  mirror: 0
+  moveSpeed: 2
+  moveWait: 0.5
+  moveBarst: 1
+  destroyWait: 2
+  target: {x: 0, y: 0}
 --- !u!198 &198493209051592178
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -4743,12 +4748,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e661231bcc2b90941a19e04604dd7067, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7cedc08c2728f114fb2c36211cea159d, type: 3}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 2.55, y: 2.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

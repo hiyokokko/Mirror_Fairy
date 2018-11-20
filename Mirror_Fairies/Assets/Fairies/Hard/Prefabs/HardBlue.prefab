@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 95762234068514072}
   - component: {fileID: 61469200551619362}
   - component: {fileID: 50317358085221558}
-  - component: {fileID: 114254458489407294}
+  - component: {fileID: 114671171825016260}
   m_Layer: 0
   m_Name: HardBlue
   m_TagString: Untagged
@@ -73,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1341939492290228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1539646, y: 0.1539646, z: 1}
   m_Children:
   - {fileID: 224276367509660008}
@@ -164,19 +164,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114254458489407294
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341939492290228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 808647dadbdd1e74a941b7117a3f07cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  burret: {fileID: 1174645595901180, guid: 6f7fce25c3f02154498c441d441d0653, type: 2}
-  healthText: {fileID: 114390063026785808}
 --- !u!114 &114390063026785808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -209,7 +196,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 400
+  m_Text: '
+
+'
 --- !u!114 &114414282480463968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -226,6 +215,41 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114671171825016260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1341939492290228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ed694318216fe4f8fec4bc0bbbf2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burret:
+  - {fileID: 1174645595901180, guid: 6f7fce25c3f02154498c441d441d0653, type: 2}
+  healthText: {fileID: 114390063026785808}
+  fairyNum: 1
+  health: 400
+  speed: 2
+  move: 4
+  attackWait: 0.5
+  attackPattern: ffffffffffff0000
+  attackInfo:
+  - vector3Array:
+    - vector3:
+      - {x: 15, y: 0, z: 140}
+      - {x: 15, y: 0, z: 160}
+      - {x: 15, y: 0, z: -180}
+      - {x: 15, y: 0, z: -160}
+      - {x: 15, y: 0, z: -140}
+    - vector3:
+      - {x: 15, y: 0, z: 150}
+      - {x: 15, y: 0, z: 170}
+      - {x: 15, y: 0, z: -170}
+      - {x: 15, y: 0, z: -150}
+  targetShiftPosX: 0
+  targetShiftPosY: 0
 --- !u!212 &212012955461522710
 SpriteRenderer:
   m_ObjectHideFlags: 1

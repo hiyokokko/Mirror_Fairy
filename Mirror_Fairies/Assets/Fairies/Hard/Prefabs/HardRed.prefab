@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   burret:
   - {fileID: 1412497474823282, guid: ddee88a28c69d374ebd7c87d0ce81ce4, type: 2}
-  - {fileID: 0}
+  - {fileID: 1492110181619698, guid: 3f1fe79b2b9fd864186f70d23f9f890f, type: 2}
   healthText: {fileID: 114074563362092270}
 --- !u!114 &114074563362092270
 MonoBehaviour:

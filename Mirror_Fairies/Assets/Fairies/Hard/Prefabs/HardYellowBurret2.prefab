@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4226872731538386}
   - component: {fileID: 212675318322008256}
   - component: {fileID: 61187367969633660}
-  - component: {fileID: 114463171232752758}
+  - component: {fileID: 114676504339145034}
   m_Layer: 0
   m_Name: HardYellowBurret2
   m_TagString: Burret
@@ -98,7 +98,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.55, y: 2.55}
   m_EdgeRadius: 0
---- !u!114 &114463171232752758
+--- !u!114 &114676504339145034
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,10 +106,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1409532793848488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e1c4b6127334e64e954e960ef162b18, type: 3}
+  m_Script: {fileID: 11500000, guid: b44520c5fef9eeb4ea7961f83a4e02b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  mirror: 1
+  mirrorSpeedChange: 0
+  moveSpeed: 8
+  moveWait: 0
+  moveBarst: 0
+  destroyWait: 0
+  action: 0
+  actionBurret: {fileID: 0}
+  actionTargetPos: 0
+  actionTime: 0
+  actionInfo: []
+  actionEndDestroy: 0
+  aim: 0
+  targetPos: {x: 0, y: 0}
 --- !u!198 &198310271897459426
 ParticleSystem:
   m_ObjectHideFlags: 1
