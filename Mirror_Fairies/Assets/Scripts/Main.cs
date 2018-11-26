@@ -38,14 +38,14 @@ public class Main : MonoBehaviour
 	}
 	void PlayerSpawn()
 	{
-		Instantiate(playerFairies[Select.diff], playerPos, Quaternion.Euler(0.0f, -180.0f, 0.0f));
+		Instantiate(playerFairies[Select.diff], playerPos, Quaternion.identity);
 	}
 	void EnemySpawn()
 	{
 		enemySpawnTime += Time.deltaTime;
 		if (enemySpawnTime >= enemySpawnWait)
 		{
-			foreach (GameObject burret in GameObject.FindGameObjectsWithTag("Burret"))
+			foreach (GameObject burret in GameObject.FindGameObjectsWithTag("EnemyBurret"))
 			{
 				Destroy(burret);
 			}

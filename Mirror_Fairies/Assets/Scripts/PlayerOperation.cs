@@ -58,11 +58,3 @@ public class PlayerOperation
 		}
 	}
 }
-public class PlayerTouchState
-{
-	public int attack = -1;
-	public int move = -1;
-	public Vector2 beforePos;
-	public Vector2 beforeTouchPos;
-	public Vector2 afterTouchPos;
-}

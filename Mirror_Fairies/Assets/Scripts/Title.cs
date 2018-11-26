@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 public class Title : MonoBehaviour
 {
+	void Start()
+	{
+		PlayerPrefs.DeleteAll();
+	}
 	void Update()
 	{
 		if (TouchOperation.GetTouch(0) == TouchInfo.End) { SelectScene(1); }
